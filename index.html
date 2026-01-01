@@ -12,7 +12,7 @@
     h1 {
       color: #333;
     }
-    textarea, input {
+    input, textarea {
       width: 100%;
       margin-top: 10px;
       padding: 8px;
@@ -33,36 +33,50 @@
       margin-top: 10px;
       border-radius: 5px;
     }
+    #areaPrivada {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
   <h1>🧾 Rotina de Operadora de Caixa</h1>
-  <p>Relatos pessoais do dia a dia (acesso restrito).</p>
+  <p>Área pessoal – acesso restrito.</p>
 
-  <input type="password" id="senha" placeholder="Digite a senha">
+  <!-- LOGIN -->
+  <div id="login">
+    <input type="password" id="senha" placeholder="Digite a senha">
+    <button onclick="entrar()">Entrar</button>
+  </div>
 
-  <textarea id="comentario" placeholder="Escreva sobre sua rotina..."></textarea>
+  <!-- ÁREA PRIVADA -->
+  <div id="areaPrivada">
+    <textarea id="comentario" placeholder="Escreva sobre sua rotina..."></textarea>
+    <input type="file" id="midia" accept="image/*,video/*">
+    <button onclick="publicar()">Publicar</button>
 
-  <input type="file" id="midia" accept="image/*,video/*">
-
-  <button onclick="publicar()">Publicar</button>
-
-  <div id="posts"></div>
+    <div id="posts"></div>
+  </div>
 
   <script>
-    const SENHA_CORRETA = "JéssicaBaccaro2026sim"; // 🔴 TROQUE AQUI
+    const SENHA_CORRETA = "1234"; // 🔴 TROQUE AQUI
     const postsDiv = document.getElementById("posts");
 
-    function publicar() {
+    function entrar() {
       const senha = document.getElementById("senha").value;
+
+      if (senha === SENHA_CORRETA) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("areaPrivada").style.display = "block";
+        carregar();
+      } else {
+        alert("Senha incorreta.");
+      }
+    }
+
+    function publicar() {
       const texto = document.getElementById("comentario").value;
       const midia = document.getElementById("midia").files[0];
-
-      if (senha !== SENHA_CORRETA) {
-        alert("Senha incorreta. Apenas a autora pode comentar.");
-        return;
-      }
 
       if (texto.trim() === "" && !midia) {
         alert("Escreva algo ou envie uma mídia.");
@@ -114,8 +128,6 @@
         postsDiv.innerHTML = salvo;
       }
     }
-
-    carregar();
   </script>
 
 </body>
