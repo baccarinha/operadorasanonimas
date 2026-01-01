@@ -32,27 +32,19 @@
   }
 }
 
-.laterais {
-  position: fixed;
-  top: 20px;
-  width: 100%;
-  pointer-events: none;
-  z-index: 10;
-}
-
 .neon {
   width: 120px;
   animation: pulsar-neon 2.5s infinite ease-in-out;
 }
 
 .lateral-esq {
-  position: absolute;
-  left: 10px;
+  position: fixed;
+  left: 0;
 }
 
 .lateral-dir {
-  position: absolute;
-  right: 10px;
+  position: fixed;
+  right: 0;
 }
 
 body {
@@ -60,7 +52,6 @@ body {
   font-family: Arial, sans-serif;
   min-height: 100vh;
 
-  /* Fundo escuro elegante */
   background: radial-gradient(
     circle at top,
     #020617 0%,
@@ -68,26 +59,23 @@ body {
     #0f172a 100%
   );
 
-  /* Texto */
   color: #e5e7eb;
 
-  /* Espaço para imagens laterais neon */
-  padding: 20px 180px;
+  /* 🔽 espaço superior para não colidir com as caveiras */
+  padding: 160px 180px 20px;
 
-  /* Centralização visual */
   box-sizing: border-box;
 }
 
 h1 {
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 15px;
+  margin-top: 0;
+  margin-bottom: 25px;
   color: #ec4899;
   text-shadow:
     0 0 10px #ec4899,
     0 0 20px #3b82f6;
 }
-
     input, textarea {
       width: 100%;
       margin-top: 10px;
