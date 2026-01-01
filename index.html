@@ -4,40 +4,51 @@
   <meta charset="UTF-8">
   <title>Rotina de Operadoras de Caixa Anônimas</title>
   <style>
-@keyframes pulsar {
-  0% {
-    transform: scale(1);
-    box-shadow:
-      0 0 10px #3b82f6,
-      0 0 20px #3b82f6,
-      0 0 30px #ec4899,
-      0 0 40px #ec4899;
-  }
-  50% {
-    transform: scale(1.08);
-    box-shadow:
-      0 0 20px #3b82f6,
-      0 0 35px #3b82f6,
-      0 0 45px #ec4899,
-      0 0 60px #ec4899;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow:
-      0 0 10px #3b82f6,
-      0 0 20px #3b82f6,
-      0 0 30px #ec4899,
-      0 0 40px #ec4899;
-  }
+.coracao-neon {
+  position: relative;
+  width: 180px;
+  height: 160px;
+  margin: 40px auto;
+  transform: rotate(-45deg);
+  background: linear-gradient(135deg, #3b82f6, #ec4899);
+  animation: pulsar 2.2s infinite ease-in-out;
+  box-shadow:
+    0 0 15px #3b82f6,
+    0 0 30px #3b82f6,
+    0 0 45px #ec4899,
+    0 0 60px #ec4899;
 }
 
-.coracao {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  clip-path: path("M125 40 C125 15, 75 15, 75 50 C75 75, 125 105, 125 140 C125 105, 175 75, 175 50 C175 15, 125 15, 125 40 Z");
-  animation: pulsar 2.2s infinite ease-in-out;
-  border-radius: 10px;
+.coracao-neon::before,
+.coracao-neon::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 160px;
+  background: linear-gradient(135deg, #3b82f6, #ec4899);
+  border-radius: 50%;
+}
+
+.coracao-neon::before {
+  top: -80px;
+  left: 0;
+}
+
+.coracao-neon::after {
+  left: 80px;
+  top: 0;
+}
+
+@keyframes pulsar {
+  0% {
+    transform: rotate(-45deg) scale(1);
+  }
+  50% {
+    transform: rotate(-45deg) scale(1.08);
+  }
+  100% {
+    transform: rotate(-45deg) scale(1);
+  }
 }
 
     body {
@@ -78,6 +89,7 @@
   </style>
 </head>
 <body>
+  <div class="coracao-neon"></div>
   <h1> Rotina de Operadora de Caixa</h1>
   <p>Área pessoal – acesso restrito.</p>
 
