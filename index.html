@@ -51,15 +51,18 @@
   }
 }
 
-    body {
+body {
   font-family: Arial, sans-serif;
   padding: 20px;
-  background: linear-gradient(135deg, #1e3a8a, #ec4899);
-    }
-    h1 {
-  color: #ec4899;
-  text-shadow: 2px 2px #1e3a8a;
-    }
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #020617, #020617 40%, #0f172a 100%);
+  color: #e5e7eb;
+}
+
+h1, p {
+  color: #e5e7eb;
+}
+
 
     input, textarea {
       width: 100%;
@@ -71,12 +74,12 @@
       padding: 10px;
       cursor: pointer;
     }
-    .post {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 8px;
-    }
+.post {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+}
+
 
     img, video {
       max-width: 100%;
