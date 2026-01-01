@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rotina de Operadora de Caixa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .post {
+      background: #fff;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+    img, video {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧾 Rotina de Operadora de Caixa</h1>
+  <p>Relatos do dia a dia, desafios e aprendizados.</p>
+
+  <textarea id="comentario" placeholder="Escreva sobre sua rotina..."></textarea><br>
+
+  <input type="file" id="midia" accept="image/*,video/*"><br>
+
+  <button onclick="publicar()">Publicar</button>
+
+  <div id="posts"></div>
+
+  <script>
+    const postsDiv = document.getElementById("posts");
+
+    function publicar() {
+      const texto = document.getElementById("comentario").value;
+      const midia = document.getElementById("midia").files[0];
+
+      if (texto.trim() === "" && !midia) {
+        alert("Escreva algo ou envie uma mídia.");
+        return;
+      }
+
+      const post = document.createElement("div");
+      post.className = "post";
+
+      if (texto) {
+        const p = document.createElement("p");
+        p.textContent = texto;
+        post.appendChild(p);
+      }
+
+      if (midia) {
+        const url = URL.createObjectURL(midia);
+
+        if (midia.type.startsWith("image")) {
+          const img = document.createElement("img");
+          img.src = url;
+          post.appendChild(img);
+        } else if (midia.type.startsWith("video")) {
+          const video = document.createElement("video");
+          video.src = url;
+          video.controls = true;
+          post.appendChild(video);
+        }
+      }
+
+      postsDiv.prepend(post);
+      salvar();
+      document.getElementById("comentario").value = "";
+      document.getElementById("midia").value = "";
+    }
+
+    function salvar() {
+      localStorage.setItem("conteudo", postsDiv.innerHTML);
+    }
+
+    function carregar() {
+      const salvo = localStorage.getItem("conteudo");
+      if (salvo) {
+        postsDiv.innerHTML = salvo;
+      }
+    }
+
+    carregar();
+  </script>
+
+</body>
+</html>
