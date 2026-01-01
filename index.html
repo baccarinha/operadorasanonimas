@@ -4,13 +4,19 @@
   <meta charset="UTF-8">
   <title>Rotina de Operadoras de Caixa Anônimas</title>
   <style>
-    .topo {
-  width: 100%;
-  max-height: 300px;
+    .coracao-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.coracao {
+  width: 250px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 20px;
-    }
+  clip-path: path("M125 40 C125 15, 75 15, 75 50 C75 75, 125 105, 125 140 C125 105, 175 75, 175 50 C175 15, 125 15, 125 40 Z");
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
+}
     body {
   font-family: Arial, sans-serif;
   padding: 20px;
