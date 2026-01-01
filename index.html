@@ -7,12 +7,27 @@
 @keyframes pulsar {
   0% {
     transform: scale(1);
+    box-shadow:
+      0 0 10px #3b82f6,
+      0 0 20px #3b82f6,
+      0 0 30px #ec4899,
+      0 0 40px #ec4899;
   }
   50% {
     transform: scale(1.08);
+    box-shadow:
+      0 0 20px #3b82f6,
+      0 0 35px #3b82f6,
+      0 0 45px #ec4899,
+      0 0 60px #ec4899;
   }
   100% {
     transform: scale(1);
+    box-shadow:
+      0 0 10px #3b82f6,
+      0 0 20px #3b82f6,
+      0 0 30px #ec4899,
+      0 0 40px #ec4899;
   }
 }
 
@@ -21,8 +36,8 @@
   height: 250px;
   object-fit: cover;
   clip-path: path("M125 40 C125 15, 75 15, 75 50 C75 75, 125 105, 125 140 C125 105, 175 75, 175 50 C175 15, 125 15, 125 40 Z");
-  animation: pulsar 2s infinite ease-in-out;
-  box-shadow: 0 0 18px rgba(236, 72, 153, 0.7);
+  animation: pulsar 2.2s infinite ease-in-out;
+  border-radius: 10px;
 }
 
     body {
@@ -63,9 +78,6 @@
   </style>
 </head>
 <body>
-  <div class="coracao-container">
-  <img src="https://customerjourney.uk.com/wp-content/uploads/13.-smiling-cashier-780x500.jpg" alt="Imagem em coração" class="coracao">
-</div>
   <h1> Rotina de Operadora de Caixa</h1>
   <p>Área pessoal – acesso restrito.</p>
 
