@@ -4,59 +4,50 @@
   <meta charset="UTF-8">
   <title>Rotina de Operadoras de Caixa Anônimas</title>
   <style>
-.coracao-neon {
-  position: relative;
-  width: 180px;
-  height: 160px;
-  margin: 40px auto;
-  transform: rotate(-45deg);
-  background: linear-gradient(135deg, #3b82f6, #ec4899);
-  animation: pulsar 2.2s infinite ease-in-out;
-  box-shadow:
-    0 0 15px #3b82f6,
-    0 0 30px #3b82f6,
-    0 0 45px #ec4899,
-    0 0 60px #ec4899;
-}
-
-.coracao-neon::before,
-.coracao-neon::after {
-  content: "";
-  position: absolute;
-  width: 180px;
-  height: 160px;
-  background: linear-gradient(135deg, #3b82f6, #ec4899);
-  border-radius: 50%;
-}
-
-.coracao-neon::before {
-  top: -80px;
-  left: 0;
-}
-
-.coracao-neon::after {
-  left: 80px;
-  top: 0;
-}
-
-@keyframes pulsar {
+@keyframes pulsar-neon {
   0% {
-    transform: rotate(-45deg) scale(1);
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px #3b82f6)
+            drop-shadow(0 0 20px #ec4899);
   }
   50% {
-    transform: rotate(-45deg) scale(1.08);
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 20px #3b82f6)
+            drop-shadow(0 0 40px #ec4899);
   }
   100% {
-    transform: rotate(-45deg) scale(1);
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px #3b82f6)
+            drop-shadow(0 0 20px #ec4899);
   }
+}
+
+.laterais {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.neon {
+  width: 140px;
+  animation: pulsar-neon 2.5s infinite ease-in-out;
+}
+
+.lateral-esq {
+  position: absolute;
+  left: 10px;
+}
+
+.lateral-dir {
+  position: absolute;
+  right: 10px;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #020617, #020617 40%, #0f172a 100%);
-  color: #e5e7eb;
+  padding-left: 180px;
+  padding-right: 180px;
 }
 
 h1 {
@@ -97,7 +88,11 @@ h1 {
   </style>
 </head>
 <body>
-  <div class="coracao-neon"></div>
+<div class="laterais">
+  <img src="esquerda.png" class="neon lateral-esq" alt="Imagem esquerda neon">
+  <img src="direita.png" class="neon lateral-dir" alt="Imagem direita neon">
+</div>
+
   <h1> Rotina de Operadoras de Caixa Anônimas</h1>
   <p>Área pessoal – acesso restrito.</p>
 
