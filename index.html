@@ -171,87 +171,61 @@
   </div>
 
 <script type="module">
- import {
-  getFirestore,
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    deleteDoc,
+    doc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
-const db = getFirestore(app);
-const postsDiv = document.getElementById("posts");
-
-function carregarComentarios() {
-  const q = query(collection(db, "posts"), orderBy("data", "desc"));
-
-  onSnapshot(q, (snapshot) => {
-    postsDiv.innerHTML = "";
-
-    snapshot.forEach((docSnap) => {
-      const post = docSnap.data();
-      const div = document.createElement("div");
-      div.className = "post";
-
-      div.innerHTML = `
-        <strong>${post.email}</strong><br>
-        <p>${post.texto}</p>
-      `;
-
-      // 🔐 botão só para o dono
-      if (auth.currentUser && auth.currentUser.uid === post.uid) {
-        const btnExcluir = document.createElement("button");
-        btnExcluir.textContent = "🗑️ Excluir";
-        btnExcluir.style.background = "#dc2626";
-        btnExcluir.style.color = "#fff";
-
-        btnExcluir.onclick = () => excluirComentario(docSnap.id);
-
-        div.appendChild(btnExcluir);
-      }
-
-      postsDiv.appendChild(div);
-    });
-  });
-}
-
+  const firebaseConfig = {
+    apiKey: "AIzaSyAzmBG2rQy7NdMRcoMwgvMmyTkDow0vNzA",
+    authDomain: "operadorasanonimas.firebaseapp.com",
+    projectId: "operadorasanonimas",
+    storageBucket: "operadorasanonimas.firebasestorage.app",
+    messagingSenderId: "214106326196",
+    appId: "1:214106326196:web:7702707ae9b5db846503e1"
+  };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
+
   let usuarioAtual = null;
 
   const loginDiv = document.getElementById("login");
   const areaPrivada = document.getElementById("areaPrivada");
+  const postsDiv = document.getElementById("posts");
 
   window.entrar = function () {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
-
-    signInWithEmailAndPassword(auth, email, senha)
-      .catch(() => alert("Email ou senha inválidos"));
+    signInWithEmailAndPassword(
+      auth,
+      email.value,
+      senha.value
+    ).catch(() => alert("Email ou senha inválidos"));
   };
 
   window.cadastrar = function () {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
-
-    if (!email || !senha) {
-      alert("Preencha email e senha");
-      return;
-    }
-
-    if (senha.length < 6) {
+    if (senha.value.length < 6) {
       alert("Senha mínima de 6 caracteres");
       return;
     }
 
-    createUserWithEmailAndPassword(auth, email, senha)
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
+    createUserWithEmailAndPassword(auth, email.value, senha.value)
+      .catch(e => {
+        if (e.code === "auth/email-already-in-use") {
           alert("Email já cadastrado");
         } else {
           alert("Erro ao cadastrar");
@@ -259,97 +233,70 @@ function carregarComentarios() {
       });
   };
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-        usuarioAtual = user;
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      usuarioAtual = user;
       loginDiv.style.display = "none";
-  areaPrivada.style.display = "block";
-  carregarComentarios(); // 👈 aqui
+      areaPrivada.style.display = "block";
+      carregarComentarios();
+    } else {
+      usuarioAtual = null;
+      loginDiv.style.display = "block";
+      areaPrivada.style.display = "none";
+    }
+  });
 
-;
-  } else {
-    usuarioAtual = null;
-    loginDiv.style.display = "block";
-    areaPrivada.style.display = "none";
-  }
-});
+  window.publicar = async function () {
+    if (!comentario.value.trim()) return;
 
-
- window.publicar = async function () {
-  const texto = document.getElementById("comentario").value.trim();
-
-  if (!texto) {
-    alert("Escreva algo antes de publicar");
-    return;
-  }
-
-  if (!usuarioAtual) {
-    alert("Usuário não autenticado");
-    return;
-  }
-
-  try {
     await addDoc(collection(db, "posts"), {
-      texto: texto,
+      texto: comentario.value,
       email: usuarioAtual.email,
       uid: usuarioAtual.uid,
       criadoEm: serverTimestamp()
     });
 
-    document.getElementById("comentario").value = "";
-  } catch (e) {
-    alert("Erro ao salvar comentário");
-    console.error(e);
-  }
-};
-function carregarPosts() {
-  const postsDiv = document.getElementById("posts");
-  postsDiv.innerHTML = "";
+    comentario.value = "";
+  };
 
-  const q = query(
-    collection(db, "posts"),
-    orderBy("criadoEm", "desc")
-  );
+  function carregarComentarios() {
+    const q = query(
+      collection(db, "posts"),
+      orderBy("criadoEm", "desc")
+    );
 
-  onSnapshot(q, (snapshot) => {
-    postsDiv.innerHTML = "";
+    onSnapshot(q, (snapshot) => {
+      postsDiv.innerHTML = "";
 
-    snapshot.forEach((doc) => {
-      const post = doc.data();
+      snapshot.forEach((docSnap) => {
+        const post = docSnap.data();
+        const div = document.createElement("div");
+        div.className = "post";
 
-      const div = document.createElement("div");
-      div.className = "post";
+        div.innerHTML = `
+          <strong>${post.email}</strong><br><br>
+          ${post.texto.replace(/\n/g, "<br>")}
+        `;
 
-      div.innerHTML = `
-        <strong>${post.email}</strong><br><br>
-        ${post.texto.replace(/\n/g, "<br>")}
-      `;
+        if (usuarioAtual.uid === post.uid) {
+          const btn = document.createElement("button");
+          btn.textContent = "🗑️ Excluir";
+          btn.onclick = () => excluirComentario(docSnap.id);
+          div.appendChild(btn);
+        }
 
-      postsDiv.appendChild(div);
+        postsDiv.appendChild(div);
+      });
     });
-  });
-}
-
-  {
-  texto: "...",
-  email: "usuario@email.com",
-  uid: "UID_DO_USUARIO",
-  data: serverTimestamp()
-    uid: usuarioAtual.uid
-}
+  }
 
   async function excluirComentario(id) {
-  if (!confirm("Deseja realmente excluir este comentário?")) return;
-
-  try {
-    await deleteDoc(doc(db, "posts", id));
-  } catch (error) {
-    alert("Você não tem permissão para excluir este comentário");
+    if (confirm("Excluir comentário?")) {
+      await deleteDoc(doc(db, "posts", id));
+    }
   }
-}
-
-
 </script>
+
 
 </body>
 </html>
