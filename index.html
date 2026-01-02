@@ -1,3 +1,178 @@
+coloquei certo?
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rotina de Operadoras de Caixa Anônimas</title>
+
+  <style>
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      body {
+        padding: 160px 20px 20px;
+      }
+    }
+
+    /* FUNDO */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(
+        circle at top,
+        #0b0f1a 0%,
+        #070b14 40%,
+        #020617 100%
+      );
+      color: #e5e7eb;
+      padding: 160px 180px 20px;
+      box-sizing: border-box;
+    }
+
+    /* TOPO */
+.topo-neon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    #3a3a3a 0%,
+    #1e1e1e 45%,
+    #000000 100%
+  );
+}
+    .titulo-topo {
+      flex: 1;
+      text-align: center;
+      font-size: 28px;
+      color: #ffffff;
+      text-shadow: 0 0 10px #ec4899, 0 0 20px #3b82f6;
+    }
+
+.caveira {
+  width: 100px;
+  max-width: 20vw;
+  animation: pulsar 2.5s infinite ease-in-out;
+  filter:
+    drop-shadow(0 0 2px #ffffff)
+    drop-shadow(0 0 15px #ec4899)
+    drop-shadow(0 0 30px #3b82f6);
+}
+
+    @keyframes pulsar {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* LOGIN */
+    #login {
+      background: #ffffff;
+      max-width: 320px;
+      margin: 40px auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow:
+        0 0 20px rgba(236, 72, 153, 0.3),
+        0 0 30px rgba(59, 130, 246, 0.3);
+      text-align: center;
+    }
+
+    #login input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 2px solid #000;
+      color: #000;
+      background: #f5f5f5;
+    }
+
+    #login button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: none;
+      background: #000;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ÁREA PRIVADA */
+    #areaPrivada {
+      display: none;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    textarea, input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .post {
+      background: #f5f5f5;
+      color: #000;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+    }
+
+    .post img,
+    .post video {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPO -->
+  <div class="topo-neon">
+    <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png" class="caveira">
+    <div class="titulo-topo">Rotina de Operadoras de Caixa Anônimas</div>
+    <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png" class="caveira">
+  </div>
+
+  <p>Área pessoal – acesso restrito.</p>
+
+  <!-- LOGIN -->
+  <div id="login">
+    <input type="password" id="senha" placeholder="Digite a senha">
+    <button onclick="entrar()">Entrar</button>
+  </div>
+
+  <!-- ÁREA PRIVADA -->
+  <div id="areaPrivada">
+    <textarea id="comentario" placeholder="Escreva sobre sua rotina..."></textarea>
+    <input type="file" id="midia" accept="image/*,video/*">
+    <button onclick="publicar()">Publicar</button>
+    <div id="posts"></div>
+  </div>
+
+  <script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
   import { 
@@ -39,3 +214,7 @@
     }
   });
 </script>
+
+
+</body>
+</html>
