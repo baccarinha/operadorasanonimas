@@ -171,31 +171,54 @@
   </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import {
-     getFirestore,
-    collection,
-    addDoc,
-    serverTimestamp,
-    query,
-    orderBy,
-    onSnapshot
-    getAuth,
-    const db = getFirestore(app);
-    let usuarioAtual = null;
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    onAuthStateChanged
+ import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  deleteDoc,
+  doc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAzmBG2rQy7NdMRcoMwgvMmyTkDow0vNzA",
-    authDomain: "operadorasanonimas.firebaseapp.com",
-    projectId: "operadorasanonimas",
-    storageBucket: "operadorasanonimas.firebasestorage.app",
-    messagingSenderId: "214106326196",
-    appId: "1:214106326196:web:7702707ae9b5db846503e1"
-  };
+const db = getFirestore(app);
+const postsDiv = document.getElementById("posts");
+
+function carregarComentarios() {
+  const q = query(collection(db, "posts"), orderBy("data", "desc"));
+
+  onSnapshot(q, (snapshot) => {
+    postsDiv.innerHTML = "";
+
+    snapshot.forEach((docSnap) => {
+      const post = docSnap.data();
+      const div = document.createElement("div");
+      div.className = "post";
+
+      div.innerHTML = `
+        <strong>${post.email}</strong><br>
+        <p>${post.texto}</p>
+      `;
+
+      // 🔐 botão só para o dono
+      if (auth.currentUser && auth.currentUser.uid === post.uid) {
+        const btnExcluir = document.createElement("button");
+        btnExcluir.textContent = "🗑️ Excluir";
+        btnExcluir.style.background = "#dc2626";
+        btnExcluir.style.color = "#fff";
+
+        btnExcluir.onclick = () => excluirComentario(docSnap.id);
+
+        div.appendChild(btnExcluir);
+      }
+
+      postsDiv.appendChild(div);
+    });
+  });
+}
+
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -238,10 +261,12 @@
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    usuarioAtual = user;
-    loginDiv.style.display = "none";
-    areaPrivada.style.display = "block";
-    carregarPosts();
+        usuarioAtual = user;
+      loginDiv.style.display = "none";
+  areaPrivada.style.display = "block";
+  carregarComentarios(); // 👈 aqui
+
+;
   } else {
     usuarioAtual = null;
     loginDiv.style.display = "block";
@@ -305,7 +330,23 @@ function carregarPosts() {
   });
 }
 
-uid: usuarioAtual.uid
+  {
+  texto: "...",
+  email: "usuario@email.com",
+  uid: "UID_DO_USUARIO",
+  data: serverTimestamp()
+    uid: usuarioAtual.uid
+}
+
+  async function excluirComentario(id) {
+  if (!confirm("Deseja realmente excluir este comentário?")) return;
+
+  try {
+    await deleteDoc(doc(db, "posts", id));
+  } catch (error) {
+    alert("Você não tem permissão para excluir este comentário");
+  }
+}
 
 
 </script>
