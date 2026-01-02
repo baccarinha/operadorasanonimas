@@ -3,364 +3,155 @@
 <head>
   <meta charset="UTF-8">
   <title>Rotina de Operadoras de Caixa Anônimas</title>
+
   <style>
+    /* RESPONSIVO */
     @media (max-width: 768px) {
-  body {
-    padding: 20px;
-  }
-
-  .laterais {
-    display: none;
-  }
-}
-/* TOPO FIXO */
-.topo-neon {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  z-index: 1000;
-
-background: linear-gradient(
-  to bottom,
-  #3a3a3a 0%,
-  #1e1e1e 45%,
-  #000000 100%
-);
-
-
-/* TÍTULO CENTRAL */
-.titulo-topo {
-  flex: 1;
-  text-align: center;
-  font-size: 28px;
-  color: #ffffff;
-  text-shadow:
-    0 0 10px #ec4899,
-    0 0 20px #3b82f6;
-}
-
-/* CAVEIRAS */
-.caveira {
-  width: 110px;
-  animation: pulsar-neon 2.5s infinite ease-in-out;
-  filter:
-    drop-shadow(0 0 10px #ffffff)
-    drop-shadow(0 0 25px #3b82f6)
-    drop-shadow(0 0 40px #ec4899);
-}
-
-/* POSIÇÕES */
-.esquerda {
-  margin-right: 20px;
-}
-
-.direita {
-  margin-left: 20px;
-}
-
-/* EMPURRA O CONTEÚDO PARA BAIXO */
-body {
-  padding-top: 160px;
-}
-
-@keyframes pulsar-neon {
-  0% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 10px #3b82f6)
-            drop-shadow(0 0 20px #ec4899);
-  }
-  50% {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 20px #3b82f6)
-            drop-shadow(0 0 40px #ec4899);
-  }
-  100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 10px #3b82f6)
-            drop-shadow(0 0 20px #ec4899);
-  }
-}
-
-.neon {
-  opacity: 0.85;
-  width: 110px;
-  position: fixed;
-  top: 20px;
-  animation: pulsar-neon 2.5s infinite ease-in-out;
-
-  /* contorno branco + neon */
-  filter:
-    drop-shadow(0 0 2px #ffffff)
-    drop-shadow(0 0 6px #ffffff)
-    drop-shadow(0 0 15px #ec4899)
-    drop-shadow(0 0 30px #3b82f6);
-}
-    
-.lateral-esq {
-  left: 20px;
-}
-
-.lateral-dir {
-  right: 20px;
-}
-
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-
-background: radial-gradient(
-  circle at top,
-  #0b0f1a 0%,
-  #070b14 40%,
-  #020617 100%
-);
-
-
-
-  color: #e5e7eb;
-
-  /* 🔽 espaço superior para não colidir com as caveiras */
-  padding: 160px 180px 20px;
-
-  box-sizing: border-box;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 25px;
-  color: #ec4899;
-  text-shadow:
-    0 0 10px #ec4899,
-    0 0 20px #3b82f6;
-}
-    input, textarea {
-      width: 100%;
-      margin-top: 10px;
-      padding: 8px;
+      body {
+        padding: 160px 20px 20px;
+      }
     }
-    button {
-      margin-top: 10px;
+
+    /* FUNDO */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(
+        circle at top,
+        #0b0f1a 0%,
+        #070b14 40%,
+        #020617 100%
+      );
+      color: #e5e7eb;
+      padding: 160px 180px 20px;
+      box-sizing: border-box;
+    }
+
+    /* TOPO */
+    .topo-neon {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 1000;
+      background: linear-gradient(
+        to bottom,
+        #3a3a3a 0%,
+        #1e1e1e 45%,
+        #000000 100%
+      );
+    }
+
+    .titulo-topo {
+      flex: 1;
+      text-align: center;
+      font-size: 28px;
+      color: #ffffff;
+      text-shadow: 0 0 10px #ec4899, 0 0 20px #3b82f6;
+    }
+
+    .caveira {
+      width: 110px;
+      animation: pulsar 2.5s infinite ease-in-out;
+      filter:
+        drop-shadow(0 0 2px #ffffff)
+        drop-shadow(0 0 15px #ec4899)
+        drop-shadow(0 0 30px #3b82f6);
+    }
+
+    @keyframes pulsar {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* LOGIN */
+    #login {
+      background: #ffffff;
+      max-width: 320px;
+      margin: 40px auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow:
+        0 0 20px rgba(236, 72, 153, 0.3),
+        0 0 30px rgba(59, 130, 246, 0.3);
+      text-align: center;
+    }
+
+    #login input {
+      width: 100%;
       padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 2px solid #000;
+      color: #000;
+      background: #f5f5f5;
+    }
+
+    #login button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: none;
+      background: #000;
+      color: #fff;
+      font-weight: bold;
       cursor: pointer;
     }
-.post {
-  background: #f5f5f5;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 8px;
-}
 
-
-
-.post img,
-.post video {
-  max-width: 100%;
-  margin-top: 10px;
-  border-radius: 5px;
-}
-
+    /* ÁREA PRIVADA */
     #areaPrivada {
       display: none;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-  <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Rotina de Operadoras de Caixa Anônimas</title>
-  <style>
-    @media (max-width: 768px) {
-  body {
-    padding: 20px;
-  }
-
-  .laterais {
-    display: none;
-  }
-}
-/* TOPO FIXO */
-.topo-neon {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  z-index: 1000;
-
-background: linear-gradient(
-  to bottom,
-  #3a3a3a 0%,
-  #1e1e1e 45%,
-  #000000 100%
-);
-
-
-/* TÍTULO CENTRAL */
-.titulo-topo {
-  flex: 1;
-  text-align: center;
-  font-size: 28px;
-  color: #ffffff;
-  text-shadow:
-    0 0 10px #ec4899,
-    0 0 20px #3b82f6;
-}
-
-/* CAVEIRAS */
-.caveira {
-  width: 110px;
-  animation: pulsar-neon 2.5s infinite ease-in-out;
-  filter:
-    drop-shadow(0 0 10px #ffffff)
-    drop-shadow(0 0 25px #3b82f6)
-    drop-shadow(0 0 40px #ec4899);
-}
-
-/* POSIÇÕES */
-.esquerda {
-  margin-right: 20px;
-}
-
-.direita {
-  margin-left: 20px;
-}
-
-/* EMPURRA O CONTEÚDO PARA BAIXO */
-body {
-  padding-top: 160px;
-}
-
-@keyframes pulsar-neon {
-  0% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 10px #3b82f6)
-            drop-shadow(0 0 20px #ec4899);
-  }
-  50% {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 20px #3b82f6)
-            drop-shadow(0 0 40px #ec4899);
-  }
-  100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 10px #3b82f6)
-            drop-shadow(0 0 20px #ec4899);
-  }
-}
-
-.neon {
-  opacity: 0.85;
-  width: 110px;
-  position: fixed;
-  top: 20px;
-  animation: pulsar-neon 2.5s infinite ease-in-out;
-
-  /* contorno branco + neon */
-  filter:
-    drop-shadow(0 0 2px #ffffff)
-    drop-shadow(0 0 6px #ffffff)
-    drop-shadow(0 0 15px #ec4899)
-    drop-shadow(0 0 30px #3b82f6);
-}
-    
-.lateral-esq {
-  left: 20px;
-}
-
-.lateral-dir {
-  right: 20px;
-}
-
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-
-background: radial-gradient(
-  circle at top,
-  #0b0f1a 0%,
-  #070b14 40%,
-  #020617 100%
-);
-
-
-
-  color: #e5e7eb;
-
-  /* 🔽 espaço superior para não colidir com as caveiras */
-  padding: 160px 180px 20px;
-
-  box-sizing: border-box;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 25px;
-  color: #ec4899;
-  text-shadow:
-    0 0 10px #ec4899,
-    0 0 20px #3b82f6;
-}
-    input, textarea {
+    textarea, input[type="file"] {
       width: 100%;
-      margin-top: 10px;
       padding: 8px;
-    }
-    button {
       margin-top: 10px;
+    }
+
+    button {
       padding: 10px;
+      margin-top: 10px;
       cursor: pointer;
     }
-.post {
-  background: #f5f5f5;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 8px;
-}
 
+    .post {
+      background: #f5f5f5;
+      color: #000;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+    }
 
-
-.post img,
-.post video {
-  max-width: 100%;
-  margin-top: 10px;
-  border-radius: 5px;
-}
-
-    #areaPrivada {
-      display: none;
+    .post img,
+    .post video {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 5px;
     }
   </style>
 </head>
+
 <body>
+
+  <!-- TOPO -->
   <div class="topo-neon">
-  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png"
-       class="caveira esquerda" alt="Caveira esquerda">
+    <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png" class="caveira">
+    <div class="titulo-topo">Rotina de Operadoras de Caixa Anônimas</div>
+    <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png" class="caveira">
+  </div>
 
-  <h1 class="titulo-topo">Rotina de Operadoras de Caixa Anônimas</h1>
-
-  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png"
-       class="caveira direita" alt="Caveira direita">
-</div>
   <p>Área pessoal – acesso restrito.</p>
 
   <!-- LOGIN -->
@@ -374,19 +165,15 @@ h1 {
     <textarea id="comentario" placeholder="Escreva sobre sua rotina..."></textarea>
     <input type="file" id="midia" accept="image/*,video/*">
     <button onclick="publicar()">Publicar</button>
-
     <div id="posts"></div>
   </div>
 
-  
-
   <script>
-    const SENHA_CORRETA = "JéssicaBaccaro2026sim"; // 🔴 TROQUE AQUI
+    const SENHA_CORRETA = "JéssicaBaccaro2026sim";
     const postsDiv = document.getElementById("posts");
 
     function entrar() {
       const senha = document.getElementById("senha").value;
-
       if (senha === SENHA_CORRETA) {
         document.getElementById("login").style.display = "none";
         document.getElementById("areaPrivada").style.display = "block";
@@ -397,164 +184,36 @@ h1 {
     }
 
     function publicar() {
-      const texto = document.getElementById("comentario").value;
-      const midia = document.getElementById("midia").files[0];
+      const texto = comentario.value;
+      const midia = midiaInput.files[0];
 
-      if (texto.trim() === "" && !midia) {
-        alert("Escreva algo ou envie uma mídia.");
-        return;
-      }
+      if (!texto && !midia) return;
 
       const post = document.createElement("div");
       post.className = "post";
-
-      const data = document.createElement("small");
-      data.textContent = new Date().toLocaleString("pt-BR");
-      post.appendChild(data);
-
-      if (texto) {
-        const p = document.createElement("p");
-        p.textContent = texto;
-        post.appendChild(p);
-      }
+      post.innerHTML = `<small>${new Date().toLocaleString("pt-BR")}</small><p>${texto}</p>`;
 
       if (midia) {
         const url = URL.createObjectURL(midia);
-
         if (midia.type.startsWith("image")) {
-          const img = document.createElement("img");
-          img.src = url;
-          post.appendChild(img);
-        } else if (midia.type.startsWith("video")) {
-          const video = document.createElement("video");
-          video.src = url;
-          video.controls = true;
-          post.appendChild(video);
+          post.innerHTML += `<img src="${url}">`;
+        } else {
+          post.innerHTML += `<video src="${url}" controls></video>`;
         }
       }
 
       postsDiv.prepend(post);
-      salvar();
-
-      document.getElementById("comentario").value = "";
-      document.getElementById("midia").value = "";
-    }
-
-    function salvar() {
       localStorage.setItem("conteudo", postsDiv.innerHTML);
+      comentario.value = "";
+      midiaInput.value = "";
     }
 
     function carregar() {
-      const salvo = localStorage.getItem("conteudo");
-      if (salvo) {
-        postsDiv.innerHTML = salvo;
-      }
-    }
-  </script>
-
-</body>
-</html>
-  </style>
-</head>
-<body>
-  <div class="topo-neon">
-  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png"
-       class="caveira esquerda" alt="Caveira esquerda">
-
-  <h1 class="titulo-topo">Rotina de Operadoras de Caixa Anônimas</h1>
-
-  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png"
-       class="caveira direita" alt="Caveira direita">
-</div>
-  <p>Área pessoal – acesso restrito.</p>
-
-  <!-- LOGIN -->
-  <div id="login">
-    <input type="password" id="senha" placeholder="Digite a senha">
-    <button onclick="entrar()">Entrar</button>
-  </div>
-
-  <!-- ÁREA PRIVADA -->
-  <div id="areaPrivada">
-    <textarea id="comentario" placeholder="Escreva sobre sua rotina..."></textarea>
-    <input type="file" id="midia" accept="image/*,video/*">
-    <button onclick="publicar()">Publicar</button>
-
-    <div id="posts"></div>
-  </div>
-
-  
-
-  <script>
-    const SENHA_CORRETA = "JéssicaBaccaro2026sim"; // 🔴 TROQUE AQUI
-    const postsDiv = document.getElementById("posts");
-
-    function entrar() {
-      const senha = document.getElementById("senha").value;
-
-      if (senha === SENHA_CORRETA) {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("areaPrivada").style.display = "block";
-        carregar();
-      } else {
-        alert("Senha incorreta.");
-      }
+      postsDiv.innerHTML = localStorage.getItem("conteudo") || "";
     }
 
-    function publicar() {
-      const texto = document.getElementById("comentario").value;
-      const midia = document.getElementById("midia").files[0];
-
-      if (texto.trim() === "" && !midia) {
-        alert("Escreva algo ou envie uma mídia.");
-        return;
-      }
-
-      const post = document.createElement("div");
-      post.className = "post";
-
-      const data = document.createElement("small");
-      data.textContent = new Date().toLocaleString("pt-BR");
-      post.appendChild(data);
-
-      if (texto) {
-        const p = document.createElement("p");
-        p.textContent = texto;
-        post.appendChild(p);
-      }
-
-      if (midia) {
-        const url = URL.createObjectURL(midia);
-
-        if (midia.type.startsWith("image")) {
-          const img = document.createElement("img");
-          img.src = url;
-          post.appendChild(img);
-        } else if (midia.type.startsWith("video")) {
-          const video = document.createElement("video");
-          video.src = url;
-          video.controls = true;
-          post.appendChild(video);
-        }
-      }
-
-      postsDiv.prepend(post);
-      salvar();
-
-      document.getElementById("comentario").value = "";
-      document.getElementById("midia").value = "";
-    }
-
-    function salvar() {
-      localStorage.setItem("conteudo", postsDiv.innerHTML);
-    }
-
-    function carregar() {
-      const salvo = localStorage.getItem("conteudo");
-      if (salvo) {
-        postsDiv.innerHTML = salvo;
-      }
-    }
+    const comentario = document.getElementById("comentario");
+    const midiaInput = document.getElementById("midia");
   </script>
 
 </body>
