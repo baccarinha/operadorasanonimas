@@ -186,32 +186,6 @@ import {
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-    window.cadastrar = function () {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-
-  if (!email || !senha) {
-    alert("Preencha email e senha");
-    return;
-  }
-
-  if (senha.length < 6) {
-    alert("A senha precisa ter no mínimo 6 caracteres");
-    return;
-  }
-
-  createUserWithEmailAndPassword(auth, email, senha)
-    .then(() => {
-      alert("Cadastro realizado com sucesso!");
-    })
-    .catch((error) => {
-      if (error.code === "auth/email-already-in-use") {
-        alert("Este email já está cadastrado");
-      } else {
-        alert("Erro ao cadastrar");
-      }
-    });
-};
 
     
 <script type="module">
@@ -254,6 +228,33 @@ import {
       areaPrivada.style.display = "none";
     }
   });
+    
+    window.cadastrar = function () {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  if (!email || !senha) {
+    alert("Preencha email e senha");
+    return;
+  }
+
+  if (senha.length < 6) {
+    alert("A senha precisa ter no mínimo 6 caracteres");
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email, senha)
+    .then(() => {
+      alert("Cadastro realizado com sucesso!");
+    })
+    .catch((error) => {
+      if (error.code === "auth/email-already-in-use") {
+        alert("Este email já está cadastrado");
+      } else {
+        alert("Erro ao cadastrar");
+      }
+    });
+};
 </script>
 
 
