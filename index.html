@@ -158,7 +158,8 @@
 
   <!-- LOGIN -->
   <div id="login">
-    <input type="password" id="senha" placeholder="Digite a senha">
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="senha" placeholder="Senha">
     <button onclick="entrar()">Entrar</button>
   </div>
 
@@ -170,31 +171,48 @@
     <div id="posts"></div>
   </div>
 
-  <script>
-
-    <script type="module">
-  // Import the functions you need from the SDKs you need
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    onAuthStateChanged 
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: "AIzaSyAzmBG2rQy7NdMRcoMwgvMmyTkDow0vNzA",
     authDomain: "operadorasanonimas.firebaseapp.com",
     projectId: "operadorasanonimas",
     storageBucket: "operadorasanonimas.firebasestorage.app",
     messagingSenderId: "214106326196",
-    appId: "1:214106326196:web:7702707ae9b5db846503e1",
-    measurementId: "G-W6STX4LV2T"
+    appId: "1:214106326196:web:7702707ae9b5db846503e1"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+
+  const loginDiv = document.getElementById("login");
+  const areaPrivada = document.getElementById("areaPrivada");
+
+  window.entrar = function () {
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+    signInWithEmailAndPassword(auth, email, senha)
+      .catch(() => alert("Email ou senha inválidos"));
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginDiv.style.display = "none";
+      areaPrivada.style.display = "block";
+    } else {
+      loginDiv.style.display = "block";
+      areaPrivada.style.display = "none";
+    }
+  });
 </script>
+
 
 
 </body>
