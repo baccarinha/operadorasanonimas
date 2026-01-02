@@ -236,11 +236,12 @@
       });
   };
 
- onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, (user) => {
   if (user) {
-    usuarioAtual = user; // 👈 guarda o usuário
+    usuarioAtual = user;
     loginDiv.style.display = "none";
     areaPrivada.style.display = "block";
+    carregarPosts();
   } else {
     usuarioAtual = null;
     loginDiv.style.display = "block";
@@ -248,11 +249,11 @@
   }
 });
 
-  window.publicar = function () {
-  const texto = document.getElementById("comentario").value;
-  const postsDiv = document.getElementById("posts");
 
-  if (!texto.trim()) {
+ window.publicar = async function () {
+  const texto = document.getElementById("comentario").value.trim();
+
+  if (!texto) {
     alert("Escreva algo antes de publicar");
     return;
   }
@@ -262,17 +263,48 @@
     return;
   }
 
-  const post = document.createElement("div");
-  post.className = "post";
+  try {
+    await addDoc(collection(db, "posts"), {
+      texto: texto,
+      email: usuarioAtual.email,
+      uid: usuarioAtual.uid,
+      criadoEm: serverTimestamp()
+    });
 
-  post.innerHTML = `
-    <strong>${usuarioAtual.email}</strong><br><br>
-    ${texto.replace(/\n/g, "<br>")}
-  `;
-
-  postsDiv.prepend(post);
-  document.getElementById("comentario").value = "";
+    document.getElementById("comentario").value = "";
+  } catch (e) {
+    alert("Erro ao salvar comentário");
+    console.error(e);
+  }
 };
+function carregarPosts() {
+  const postsDiv = document.getElementById("posts");
+  postsDiv.innerHTML = "";
+
+  const q = query(
+    collection(db, "posts"),
+    orderBy("criadoEm", "desc")
+  );
+
+  onSnapshot(q, (snapshot) => {
+    postsDiv.innerHTML = "";
+
+    snapshot.forEach((doc) => {
+      const post = doc.data();
+
+      const div = document.createElement("div");
+      div.className = "post";
+
+      div.innerHTML = `
+        <strong>${post.email}</strong><br><br>
+        ${post.texto.replace(/\n/g, "<br>")}
+      `;
+
+      postsDiv.appendChild(div);
+    });
+  });
+}
+
 
 
 </script>
