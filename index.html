@@ -136,11 +136,29 @@
       box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
     }
 
+    .post-timestamp {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
     .post img,
     .post video {
       max-width: 100%;
       margin-top: 10px;
       border-radius: 5px;
+    }
+
+    .post-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .post-actions button {
+      margin: 0;
+      padding: 5px 10px;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -259,6 +277,12 @@
     comentario.value = "";
   };
 
+  function formatarData(timestamp) {
+    if (!timestamp) return "Data desconhecida";
+    const data = timestamp.toDate();
+    return data.toLocaleDateString("pt-BR") + " " + data.toLocaleTimeString("pt-BR");
+  }
+
   function carregarComentarios() {
     const q = query(
       collection(db, "posts"),
@@ -273,16 +297,28 @@
         const div = document.createElement("div");
         div.className = "post";
 
-        div.innerHTML = `
-          <strong>${post.email}</strong><br><br>
-          ${post.texto.replace(/\n/g, "<br>")}
-        `;
+        // Exibir timestamp formatado
+        const timestampDiv = document.createElement("div");
+        timestampDiv.className = "post-timestamp";
+        timestampDiv.textContent = formatarData(post.criadoEm);
+        div.appendChild(timestampDiv);
 
+        // Exibir apenas o texto do post (SEM EMAIL)
+        const textoDiv = document.createElement("div");
+        textoDiv.innerHTML = post.texto.replace(/\n/g, "<br>");
+        div.appendChild(textoDiv);
+
+        // Botão de exclusão apenas para o proprietário do post
         if (usuarioAtual.uid === post.uid) {
+          const actionsDiv = document.createElement("div");
+          actionsDiv.className = "post-actions";
+          
           const btn = document.createElement("button");
           btn.textContent = "🗑️ Excluir";
           btn.onclick = () => excluirComentario(docSnap.id);
-          div.appendChild(btn);
+          actionsDiv.appendChild(btn);
+          
+          div.appendChild(actionsDiv);
         }
 
         postsDiv.appendChild(div);
