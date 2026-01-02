@@ -13,6 +13,61 @@
     display: none;
   }
 }
+/* TOPO FIXO */
+.topo-neon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+
+  background: linear-gradient(
+    to bottom,
+    #020617 0%,
+    #020617cc 60%,
+    transparent 100%
+  );
+}
+
+/* TÍTULO CENTRAL */
+.titulo-topo {
+  flex: 1;
+  text-align: center;
+  font-size: 28px;
+  color: #ffffff;
+  text-shadow:
+    0 0 10px #ec4899,
+    0 0 20px #3b82f6;
+}
+
+/* CAVEIRAS */
+.caveira {
+  width: 110px;
+  animation: pulsar-neon 2.5s infinite ease-in-out;
+  filter:
+    drop-shadow(0 0 10px #ffffff)
+    drop-shadow(0 0 25px #3b82f6)
+    drop-shadow(0 0 40px #ec4899);
+}
+
+/* POSIÇÕES */
+.esquerda {
+  margin-right: 20px;
+}
+
+.direita {
+  margin-left: 20px;
+}
+
+/* EMPURRA O CONTEÚDO PARA BAIXO */
+body {
+  padding-top: 160px;
+}
 
 @keyframes pulsar-neon {
   0% {
@@ -120,12 +175,15 @@ h1 {
   </style>
 </head>
 <body>
-<div class="laterais">
-  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png" class="neon lateral-esq" alt="Imagem esquerda neon">
-  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png" class="neon lateral-dir" alt="Imagem direita neon">
-</div>
+  <div class="topo-neon">
+  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png"
+       class="caveira esquerda" alt="Caveira esquerda">
 
-  <h1> Rotina de Operadoras de Caixa Anônimas</h1>
+  <h1 class="titulo-topo">Rotina de Operadoras de Caixa Anônimas</h1>
+
+  <img src="https://tse2.mm.bing.net/th/id/OIP.ULMe6sXyGfc7ZslQ6vsKVQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3.png"
+       class="caveira direita" alt="Caveira direita">
+</div>
   <p>Área pessoal – acesso restrito.</p>
 
   <!-- LOGIN -->
@@ -142,6 +200,8 @@ h1 {
 
     <div id="posts"></div>
   </div>
+
+  
 
   <script>
     const SENHA_CORRETA = "JéssicaBaccaro2026sim"; // 🔴 TROQUE AQUI
