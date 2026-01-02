@@ -14,6 +14,7 @@ O sistema oferece as seguintes funcionalidades para os usuários:
 | :--- | :--- |
 | **Autenticação** | Permite o cadastro de novos usuários e o login através de e-mail e senha. |
 | **Feed em Tempo Real** | Exibe uma lista de posts (comentários) em ordem cronológica inversa, atualizada em tempo real via **Firestore**. |
+| **Anonimato** | O e-mail do usuário **não é exibido** no feed público. |
 | **Publicação de Conteúdo** | Usuários autenticados podem escrever e publicar textos sobre suas rotinas. |
 | **Exclusão de Posts** | Cada usuário pode excluir apenas os seus próprios posts, garantindo o controle sobre o conteúdo publicado. |
 | **Interface Temática** | Design com tema escuro (Dark Mode) e elementos visuais em estilo **Neon** e animações (caveira pulsante). |
@@ -69,15 +70,9 @@ A `apiKey` do Firebase está **exposta diretamente no código-fonte** do arquivo
 
 > **Recomendação:** Para aplicações mais robustas, utilize um *backend* próprio ou funções *serverless* (como **Firebase Functions**) para interagir com o banco de dados, mantendo a chave API e outras credenciais sensíveis fora do código do cliente.
 
-### 2. Anonimato Comprometido
+### 2. Funcionalidade de Mídia Incompleta
 
-Apesar do título sugerir "Operadoras de Caixa Anônimas", o código exibe o `post.email` do usuário que publicou o comentário (linha 277).
-
-> **Recomendação:** Para garantir o anonimato, o campo `email` não deve ser exibido. Uma solução seria utilizar um nome de usuário genérico ou um identificador anônimo (ex: "Usuário 123") no lugar do e-mail.
-
-### 3. Funcionalidade de Mídia Incompleta
-
-O HTML possui um campo de upload de arquivo (`<input type="file" id="midia">`), mas a função `publicar()` (linhas 249-260) **não implementa a lógica de upload** para o Firebase Storage.
+O HTML possui um campo de upload de arquivo (`<input type="file" id="midia">`), mas a função `publicar()` **não implementa a lógica de upload** para o Firebase Storage.
 
 > **Recomendação:** Implementar a lógica de upload de arquivos utilizando o **Firebase Storage** e, em seguida, salvar a URL da mídia no documento do Firestore junto com o texto do comentário.
 
