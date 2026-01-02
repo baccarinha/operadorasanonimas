@@ -33,20 +33,28 @@
 }
 
 .neon {
-  background: #020617;
-  mix-blend-mode: multiply;
-}
-
-
-.lateral-esq {
+  opacity: 0.85;
+  width: 110px;
   position: fixed;
-  left: 0;
+  top: 20px;
+  animation: pulsar-neon 2.5s infinite ease-in-out;
+
+  /* contorno branco + neon */
+  filter:
+    drop-shadow(0 0 2px #ffffff)
+    drop-shadow(0 0 6px #ffffff)
+    drop-shadow(0 0 15px #ec4899)
+    drop-shadow(0 0 30px #3b82f6);
+}
+    
+.lateral-esq {
+  left: 20px;
 }
 
 .lateral-dir {
-  position: fixed;
-  right: 0;
+  right: 20px;
 }
+
 
 body {
   margin: 0;
