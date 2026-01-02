@@ -227,15 +227,18 @@
       });
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      loginDiv.style.display = "none";
-      areaPrivada.style.display = "block";
-    } else {
-      loginDiv.style.display = "block";
-      areaPrivada.style.display = "none";
-    }
-  });
+ onAuthStateChanged(auth, (user) => {
+  if (user) {
+    usuarioAtual = user; // 👈 guarda o usuário
+    loginDiv.style.display = "none";
+    areaPrivada.style.display = "block";
+  } else {
+    usuarioAtual = null;
+    loginDiv.style.display = "block";
+    areaPrivada.style.display = "none";
+  }
+});
+
 </script>
 
 </body>
