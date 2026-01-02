@@ -173,11 +173,18 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
   import {
+     getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+    onSnapshot
     getAuth,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAzmBG2rQy7NdMRcoMwgvMmyTkDow0vNzA",
