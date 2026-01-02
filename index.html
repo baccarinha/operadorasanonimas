@@ -239,6 +239,33 @@
   }
 });
 
+  window.publicar = function () {
+  const texto = document.getElementById("comentario").value;
+  const postsDiv = document.getElementById("posts");
+
+  if (!texto.trim()) {
+    alert("Escreva algo antes de publicar");
+    return;
+  }
+
+  if (!usuarioAtual) {
+    alert("Usuário não autenticado");
+    return;
+  }
+
+  const post = document.createElement("div");
+  post.className = "post";
+
+  post.innerHTML = `
+    <strong>${usuarioAtual.email}</strong><br><br>
+    ${texto.replace(/\n/g, "<br>")}
+  `;
+
+  postsDiv.prepend(post);
+  document.getElementById("comentario").value = "";
+};
+
+
 </script>
 
 </body>
