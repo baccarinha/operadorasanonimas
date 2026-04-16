@@ -1,8 +1,15 @@
-## 🚀 Deploy do Projeto
 
-A aplicação está publicada via GitHub Pages e pode ser acessada pelo link abaixo:
+# Operadoras Anônimas
+
+O site Operadoras Anônimas é uma plataforma digital criada para simular uma comunidade online voltada à rotina de operadoras de caixa, permitindo interação entre usuários por meio de cadastro, login e publicação de conteúdos. O projeto foi desenvolvido com apoio de Inteligência Artificial (IA), com o objetivo de demonstrar a criação de um ambiente virtual colaborativo e funcional, utilizando tecnologias web como HTML, CSS e JavaScript, além de estar hospedado no GitHub Pages para acesso online.
 
 👉 **Acesse aqui:**  
-https://baccarinha.github.io/operadorasanonimas/
+[Operadoras Anonimas](https://baccarinha.github.io/operadorasanonimas/)
 
-Não é necessário instalar nada. Basta abrir o link no navegador.
+
+|Tecnologias|
+|---|
+|HTML|
+|Css|
+|JavaScript|
+|Firebase|
