@@ -7,9 +7,9 @@ O site Operadoras Anônimas é uma plataforma digital criada para simular uma co
 [Operadoras Anonimas](https://baccarinha.github.io/operadorasanonimas/)
 
 
-|Tecnologias|
-|---|
-|HTML|
-|Css|
-|JavaScript|
-|Firebase|
+|Tecnologias|Finalidade|
+|---|--|
+|HTML|Esboço do site|
+|Css|Estilo do site|
+|JavaScript|Animação|
+|Firebase|Login e senha|
