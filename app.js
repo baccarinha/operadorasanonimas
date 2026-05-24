@@ -51,13 +51,13 @@ let loginDiv;
 let areaPrivada;
 let postsDiv;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", ()=> {
 
-  loginDiv = document.getElementById("login");
-  areaPrivada = document.getElementById("areaPrivada");
-  postsDiv = document.getElementById("posts");
+    loginDiv=document.getElementById("login");
+    areaPrivada=document.getElementById("areaPrivada");
+    postsDiv=document.getElementById("posts");
 
-});
+  });
 
 const email=document.getElementById("email");
 const senha=document.getElementById("senha");
