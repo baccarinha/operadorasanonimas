@@ -42,7 +42,7 @@ const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
 
-const ADMIN_UID="jtbaccaro.jb@gmail.com";
+const ADMIN_UID="lr2SFMyNrJb4b610BlGIA422u2y1";
 
 let usuarioAtual=null;
 
