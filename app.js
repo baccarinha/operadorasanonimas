@@ -55,56 +55,35 @@ document.addEventListener("selectionchange", () => {
   console.log(document.getSelection().toString());
 });
 
-document.addEventListener("DOMContentLoaded", ()=> {
+document.addEventListener("DOMContentLoaded", () => {
+  loginDiv = document.getElementById("login");
+  areaPrivada = document.getElementById("areaPrivada");
+  postsDiv = document.getElementById("posts");
 
-    loginDiv=document.getElementById("login");
-    areaPrivada=document.getElementById("areaPrivada");
-    postsDiv=document.getElementById("posts");
-
-  });
+  editor = document.getElementById("editor");
+});
 
 const email=document.getElementById("email");
 const senha=document.getElementById("senha");
 
-const editor=document.getElementById("editor") || {
-  innerHTML: ""
-}
+let editor;
 
-;
-
-window.formatar=function(comando) {
-
+window.formatar = function(comando) {
   document.execCommand(comando, false, null);
+};
 
-}
+window.mudarCor = function(cor) {
+  document.execCommand("styleWithCSS", false, true);
+  document.execCommand("foreColor", false, cor);
+};
 
-;
+window.adicionarLink = function() {
+  const url = prompt("Digite o link:");
 
-window.mudarCor=function(cor) {
+  if (!url) return;
 
-  document.execCommand("foreColor",
-    false,
-    cor);
-
-}
-
-;
-
-window.adicionarLink=function() {
-
-  const url=prompt("Digite o link:");
-
-  if(url) {
-
-    document.execCommand("createLink",
-      false,
-      url);
-
-  }
-
-}
-
-;
+  document.execCommand("createLink", false, url);
+};
 
 window.entrar=function () {
 
