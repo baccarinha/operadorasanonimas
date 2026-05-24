@@ -179,8 +179,7 @@ function carregarComentarios() {
       div.appendChild(textoDiv);
 
       // BOTÃO EXCLUIR
-      if (usuarioAtual.uid === post.uid) {
-
+    if (usuarioAtual.uid === ADMIN_UID) {
         const actionsDiv = document.createElement("div");
 
         actionsDiv.className = "post-actions";
