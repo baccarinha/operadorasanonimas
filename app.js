@@ -52,8 +52,7 @@ const postsDiv=document.getElementById("posts");
 
 const email=document.getElementById("email");
 const senha=document.getElementById("senha");
-const comentario=document.getElementById("comentario");
-
+const texto =document.getElementById("editor").innerHTML;
 window.entrar=function () {
 
   signInWithEmailAndPassword(auth,
