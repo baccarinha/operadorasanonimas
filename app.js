@@ -1,5 +1,3 @@
-
-<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
   import {
     getAuth,
@@ -142,4 +140,3 @@
       await deleteDoc(doc(db, "posts", id));
     }
   }
-</script>
