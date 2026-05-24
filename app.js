@@ -18,12 +18,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAzmBG2rQy7NdMRcoMwgvMmyTkDow0vNzA",
+  apiKey: "AIzaSyBKG2loEWbCRHgWYDdcCBe2n0P6guWJScQ",
   authDomain: "operadorasanonimas.firebaseapp.com",
   projectId: "operadorasanonimas",
   storageBucket: "operadorasanonimas.firebasestorage.app",
-  messagingSenderId: "214106326196",
-  appId: "1:214106326196:web:7702707ae9b5db846503e1"
+  messagingSenderId: "1056988174739",
+  appId: "1:1056988174739:web:f5b4bdc6a1421436937066"
 };
 
 const app = initializeApp(firebaseConfig);
