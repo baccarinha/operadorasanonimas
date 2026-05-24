@@ -88,21 +88,21 @@ window.adicionarLink = function() {
   }
 
 };
-window.entrar=function () {
 
-  signInWithEmailAndPassword(auth,
-    email.value,
-    senha.value) .catch((e)=> {
+window.entrar = function () {
 
+  if (!email.value || !senha.value) {
+    alert("Preencha email e senha");
+    return;
+  }
+
+  signInWithEmailAndPassword(auth, email.value, senha.value)
+    .catch((e) => {
       console.log(e);
-
       alert(e.message);
-
     });
 
-}
-
-;
+};
 
 window.cadastrar=function () {
 
@@ -154,22 +154,19 @@ onAuthStateChanged(auth, (user)=> {
 
   });
 
-window.publicar=async function () {
+window.publicar = async function () {
 
-  if ( !editor.innerHTML.trim()) return;
+  if (!editor || !editor.innerHTML.trim()) return;
 
   await addDoc(collection(db, "posts"), {
-
     texto: editor.innerHTML,
     email: usuarioAtual.email,
     uid: usuarioAtual.uid,
     criadoEm: serverTimestamp()
   });
 
-editor.innerHTML="";
-}
-
-;
+  editor.innerHTML = "";
+};
 
 function formatarData(timestamp) {
 
