@@ -2,7 +2,7 @@ import {
   initializeApp
 }
 
-  
+
 from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 
 import {
@@ -53,56 +53,62 @@ const postsDiv=document.getElementById("posts");
 
 const email=document.getElementById("email");
 const senha=document.getElementById("senha");
-const editor = document.getElementById("editor") || {
-  innerHTML: ""
-};
 
-window.formatar = function(comando) {
+const editor=document.getElementById("editor") || {
+  innerHTML: ""
+}
+
+;
+
+window.formatar=function(comando) {
 
   document.execCommand(comando, false, null);
 
-};
+}
 
-window.mudarCor = function(cor) {
+;
 
-  document.execCommand(
-    "foreColor",
+window.mudarCor=function(cor) {
+
+  document.execCommand("foreColor",
     false,
-    cor
-  );
+    cor);
 
-};
+}
 
-window.adicionarLink = function() {
+;
 
-  const url = prompt("Digite o link:");
+window.adicionarLink=function() {
 
-  if(url){
+  const url=prompt("Digite o link:");
 
-    document.execCommand(
-      "createLink",
+  if(url) {
+
+    document.execCommand("createLink",
       false,
-      url
-    );
+      url);
 
   }
 
-};
+}
 
-window.entrar = function () {
+;
 
-  if (!email.value || !senha.value) {
+window.entrar=function () {
+
+  if ( !email.value || !senha.value) {
     alert("Preencha email e senha");
     return;
   }
 
-  signInWithEmailAndPassword(auth, email.value, senha.value)
-    .catch((e) => {
+  signInWithEmailAndPassword(auth, email.value, senha.value) .catch((e)=> {
       console.log(e);
       alert(e.message);
     });
 
-};
+}
+
+;
 
 window.cadastrar=function () {
 
@@ -154,9 +160,9 @@ onAuthStateChanged(auth, (user)=> {
 
   });
 
-window.publicar = async function () {
+window.publicar=async function () {
 
-  if (!editor || !editor.innerHTML.trim()) return;
+  if ( !editor || !editor.innerHTML.trim()) return;
 
   await addDoc(collection(db, "posts"), {
     texto: editor.innerHTML,
@@ -165,8 +171,10 @@ window.publicar = async function () {
     criadoEm: serverTimestamp()
   });
 
-  editor.innerHTML = "";
-};
+editor.innerHTML="";
+}
+
+;
 
 function formatarData(timestamp) {
 
