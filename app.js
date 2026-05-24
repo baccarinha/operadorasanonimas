@@ -101,8 +101,9 @@
     );
 
     onSnapshot(q, (snapshot) => {
-      posts.innerHTML = "";
+     const postsDiv = document.getElementById("posts");
 
+      postsDiv.innerHTML = "";
       snapshot.forEach((docSnap) => {
         const post = docSnap.data();
         const div = document.createElement("div");
