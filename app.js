@@ -54,10 +54,15 @@ const comentario=document.getElementById("comentario");
 window.entrar=function () {
   signInWithEmailAndPassword(auth,
     email.value,
-    senha.value).catch(()=> alert("Email ou senha inválidos"));
-}
+    senha.value)
+    
+.catch((e) => {
 
-;
+  console.log(e);
+
+  alert(e.message);
+
+});
 
 window.cadastrar=function () {
   if (senha.value.length < 6) {
