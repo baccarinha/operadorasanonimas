@@ -94,47 +94,70 @@ function formatarData(timestamp) {
   const data = timestamp.toDate();
   return data.toLocaleDateString("pt-BR") + " " + data.toLocaleTimeString("pt-BR");
 }
-
 function carregarComentarios() {
-  unsubscribe = carregarComentarios();
-}
-return onSnapshot(q, (snapshot) => {
-  
-    const postsDiv = document.getElementById("posts");
+
+  const q = query(
+    collection(db, "posts"),
+    orderBy("criadoEm", "desc")
+  );
+
+  onSnapshot(q, (snapshot) => {
 
     postsDiv.innerHTML = "";
+
     snapshot.forEach((docSnap) => {
+
       const post = docSnap.data();
+
       const div = document.createElement("div");
+
       div.className = "post";
 
-      // Exibir timestamp formatado
+      // DATA
       const timestampDiv = document.createElement("div");
+
       timestampDiv.className = "post-timestamp";
-      timestampDiv.textContent = formatarData(post.criadoEm);
+
+      timestampDiv.textContent =
+        formatarData(post.criadoEm);
+
       div.appendChild(timestampDiv);
 
-      // Exibir apenas o texto do post (SEM EMAIL)
+      // TEXTO
       const textoDiv = document.createElement("div");
+
       textoDiv.textContent = post.texto;
+
       div.appendChild(textoDiv);
 
-      // Botão de exclusão apenas para o proprietário do post
+      // BOTÃO EXCLUIR
       if (usuarioAtual.uid === post.uid) {
-        const actionsDiv = document.createElement("div");
+
+        const actionsDiv =
+          document.createElement("div");
+
         actionsDiv.className = "post-actions";
 
-        const btn = document.createElement("button");
+        const btn =
+          document.createElement("button");
+
         btn.textContent = "🗑️ Excluir";
-        btn.onclick = () => excluirComentario(docSnap.id);
+
+        btn.onclick = () =>
+          excluirComentario(docSnap.id);
+
         actionsDiv.appendChild(btn);
 
         div.appendChild(actionsDiv);
+
       }
 
       postsDiv.appendChild(div);
+
     });
+
   });
+
 }
 
 async function excluirComentario(id) {
