@@ -332,6 +332,35 @@ textarea {
 
 }
 
+#editor {
+
+  min-height: 180px;
+
+  padding: 15px;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  color: white;
+
+  outline: none;
+
+  font-size: 16px;
+
+  line-height: 1.6;
+
+  backdrop-filter: blur(10px);
+
+}
+
+#editor:empty:before {
+  content: "Escreva sobre sua rotina...";
+  color: #94a3b8;
+}
+
 /* FOOTER */
 footer {
 
