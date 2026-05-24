@@ -1,10 +1,10 @@
 
     /* RESPONSIVO */
-    @media (max-width: 768px) {
-      body {
-        padding: 160px 20px 20px;
-      }
-    }
+    @media (min-width: 1024px) {
+  body {
+    padding: 160px 180px 20px;
+  }
+}
 
     /* FUNDO */
     body {
