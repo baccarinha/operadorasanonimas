@@ -51,6 +51,10 @@ let loginDiv;
 let areaPrivada;
 let postsDiv;
 
+document.addEventListener("selectionchange", () => {
+  console.log(document.getSelection().toString());
+});
+
 document.addEventListener("DOMContentLoaded", ()=> {
 
     loginDiv=document.getElementById("login");
