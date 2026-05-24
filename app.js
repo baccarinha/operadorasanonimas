@@ -35,8 +35,9 @@ let usuarioAtual = null;
 const loginDiv = document.getElementById("login");
 const areaPrivada = document.getElementById("areaPrivada");
 const postsDiv = document.getElementById("posts");
-
-postsDiv.innerHTML = "";
+const email = document.getElementById("email");
+const senha = document.getElementById("senha");
+const comentario = document.getElementById("comentario");
 
 window.entrar = function () {
   signInWithEmailAndPassword(
@@ -95,12 +96,10 @@ function formatarData(timestamp) {
 }
 
 function carregarComentarios() {
-  const q = query(
-    collection(db, "posts"),
-    orderBy("criadoEm", "desc")
-  );
-
-  onSnapshot(q, (snapshot) => {
+  unsubscribe = carregarComentarios();
+}
+return onSnapshot(q, (snapshot) => {
+  
     const postsDiv = document.getElementById("posts");
 
     postsDiv.innerHTML = "";
