@@ -34,7 +34,7 @@
 
   const loginDiv = document.getElementById("login");
   const areaPrivada = document.getElementById("areaPrivada");
-  const postsDiv = document.getElementById("posts");
+  postsDiv.innerHTML = "";
 
   window.entrar = function () {
     signInWithEmailAndPassword(
@@ -103,15 +103,15 @@
 
       snapshot.forEach((docSnap) => {
         const post = docSnap.data();
-        const  = document.createElement("");
-        .className = "post";
+        const div = document.createElement("div");
+        div.className = "post";
 
         // Exibir timestamp formatado
-        const timestamp = document.createElement("");
-        timestamp.className = "post-timestamp";
-        timestampDiv.textContent = formatarData(post.criadoEm);
-        div.appendChild(timestampDiv);
-
+       const timestampDiv = document.createElement("div");
+       timestampDiv.className = "post-timestamp";
+       timestampDiv.textContent = formatarData(post.criadoEm);
+       div.appendChild(timestampDiv);
+        
         // Exibir apenas o texto do post (SEM EMAIL)
         const textoDiv = document.createElement("div");
         textoDiv.textContent = post.texto;
