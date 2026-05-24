@@ -2,6 +2,7 @@ import {
   initializeApp
 }
 
+  
 from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 
 import {
@@ -52,7 +53,9 @@ const postsDiv=document.getElementById("posts");
 
 const email=document.getElementById("email");
 const senha=document.getElementById("senha");
-const editor=document.getElementById("editor");
+const editor = document.getElementById("editor") || {
+  innerHTML: ""
+};
 
 window.formatar = function(comando) {
 
