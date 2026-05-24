@@ -34,6 +34,8 @@
 
   const loginDiv = document.getElementById("login");
   const areaPrivada = document.getElementById("areaPrivada");
+  const postsDiv = document.getElementById("posts");
+
   postsDiv.innerHTML = "";
 
   window.entrar = function () {
