@@ -47,9 +47,17 @@ const ADMIN_UID="lr2SFMyNrJb4b610BlGIA422u2y1";
 
 let usuarioAtual=null;
 
-const loginDiv=document.getElementById("login");
-const areaPrivada=document.getElementById("areaPrivada");
-const postsDiv=document.getElementById("posts");
+let loginDiv;
+let areaPrivada;
+let postsDiv;
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  loginDiv = document.getElementById("login");
+  areaPrivada = document.getElementById("areaPrivada");
+  postsDiv = document.getElementById("posts");
+
+});
 
 const email=document.getElementById("email");
 const senha=document.getElementById("senha");
