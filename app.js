@@ -70,19 +70,18 @@ window.cadastrar=function () {
     return;
   }
 
-  createUserWithEmailAndPassword(auth, email.value, senha.value) .catch(e=> {
-      if (e.code==="auth/email-already-in-use") {
-        alert("Email já cadastrado");
-      }
+  createUserWithEmailAndPassword(auth, email.value, senha.value)
+    
+    
+.catch((e) => {
 
-      else {
-        alert("Erro ao cadastrar");
-      }
-    });
-}
+  console.log(e);
 
-;
+  alert(e.message);
 
+});
+
+  
 onAuthStateChanged(auth, (user)=> {
     if (user) {
       usuarioAtual=user;
