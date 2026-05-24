@@ -52,7 +52,8 @@ const postsDiv=document.getElementById("posts");
 
 const email=document.getElementById("email");
 const senha=document.getElementById("senha");
-const editor = document.getElementById("editor");
+const editor=document.getElementById("editor");
+
 window.entrar=function () {
 
   signInWithEmailAndPassword(auth,
@@ -121,21 +122,21 @@ onAuthStateChanged(auth, (user)=> {
 
 window.publicar=async function () {
 
-if (!editor.innerHTML.trim()) return;
+  if ( !editor.innerHTML.trim()) return;
 
-await addDoc(collection(db, "posts"), {
+  await addDoc(collection(db, "posts"), {
 
-  texto: editor.innerHTML,
+    texto: editor.innerHTML,
     email: usuarioAtual.email,
     uid: usuarioAtual.uid,
     criadoEm: serverTimestamp()
   });
 
-editor.innerHTML = "";
+editor.innerHTML="";
+}
+
 ;
 
-}
-  
 function formatarData(timestamp) {
 
   if ( !timestamp) return "Data desconhecida";
@@ -168,20 +169,20 @@ function carregarComentarios() {
 
           timestampDiv.className="post-timestamp";
 
-          timestampDiv.innerHTML=formatarData(post.criadoEm);
+          timestampDiv.textContent=formatarData(post.criadoEm);
 
           div.appendChild(timestampDiv);
 
           // TEXTO
-          const textoDiv = document.createElement("div");
+          const textoDiv=document.createElement("div");
 
-textoDiv.innerHTML =
-DOMPurify.sanitize(post.texto);
+          textoDiv.innerHTML=DOMPurify.sanitize(post.texto);
 
-div.appendChild(textoDiv);
+          div.appendChild(textoDiv);
 
           // BOTÃO EXCLUIR
-          if (usuarioAtual.uid === ADMIN_UID ||  usuarioAtual.uid === post.uid)
+          if (usuarioAtual.uid===ADMIN_UID || usuarioAtual.uid===post.uid) {
+
             const actionsDiv=document.createElement("div");
 
             actionsDiv.className="post-actions";
@@ -190,7 +191,6 @@ div.appendChild(textoDiv);
 
             btn.innerHTML="🗑️ Excluir";
 
-        
             btn.onclick=()=> excluirComentario(docSnap.id);
 
             actionsDiv.appendChild(btn);
