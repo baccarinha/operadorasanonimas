@@ -54,6 +54,37 @@ const email=document.getElementById("email");
 const senha=document.getElementById("senha");
 const editor=document.getElementById("editor");
 
+window.formatar = function(comando) {
+
+  document.execCommand(comando, false, null);
+
+};
+
+window.mudarCor = function(cor) {
+
+  document.execCommand(
+    "foreColor",
+    false,
+    cor
+  );
+
+};
+
+window.adicionarLink = function() {
+
+  const url = prompt("Digite o link:");
+
+  if(url){
+
+    document.execCommand(
+      "createLink",
+      false,
+      url
+    );
+
+  }
+
+};
 window.entrar=function () {
 
   signInWithEmailAndPassword(auth,
