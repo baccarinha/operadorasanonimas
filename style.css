@@ -6,6 +6,16 @@
   }
 }
 
+@media (max-width: 768px) {
+  .titulo-topo {
+    font-size: 18px;
+  }
+
+  .operadores {
+    width: 70px;
+  }
+}
+
     /* FUNDO */
     body {
       margin: 0;
