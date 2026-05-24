@@ -171,10 +171,12 @@ function carregarComentarios() {
           div.appendChild(timestampDiv);
 
           // TEXTO
-          const textoDiv=document.createElement("div");
+          const textoDiv = document.createElement("div");
 
-textoDiv.innerHTML = post.texto;
-          div.appendChild(textoDiv);
+textoDiv.innerHTML =
+DOMPurify.sanitize(post.texto);
+
+div.appendChild(textoDiv);
 
           // BOTÃO EXCLUIR
           if (usuarioAtual.uid === ADMIN_UID ||  usuarioAtual.uid === post.uid)
