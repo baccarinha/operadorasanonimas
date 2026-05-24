@@ -156,7 +156,7 @@
 
         // Exibir apenas o texto do post (SEM EMAIL)
         const textoDiv = document.createElement("div");
-        textoDiv.innerHTML = post.texto.replace(/\n/g, "<br>");
+        textoDiv.textContent = post.texto;
         div.appendChild(textoDiv);
 
         // Botão de exclusão apenas para o proprietário do post
