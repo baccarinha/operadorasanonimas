@@ -32,29 +32,50 @@
 </header>
 
 
-<section id="login">
-<input 
-  type="email"
-  id="email"
-  placeholder="Email"
-  autocomplete="email"
->
+<section id="areaPrivada">
 
-<input
-  type="password"
-  id="senha"
-  placeholder="Senha"
-  autocomplete="current-password"
->
+  <div class="toolbar">
 
-  <button onclick="entrar()">Entrar</button>
-  <button onclick="cadastrar()">Cadastrar</button>
+    <button onclick="formatar('bold')">
+      <b>B</b>
+    </button>
+
+    <button onclick="formatar('italic')">
+      <i>I</i>
+    </button>
+
+    <button onclick="formatar('underline')">
+      <u>U</u>
+    </button>
+
+    <input type="color"
+           onchange="mudarCor(this.value)">
+
+    <button onclick="adicionarLink()">
+      🔗
+    </button>
+
+  </div>
+
+  <div id="editor" contenteditable="true"></div>
+
+  <input
+    type="file"
+    id="midia"
+    accept="image/*,video/*,audio/*"
+  >
+
+  <button onclick="publicar()">
+    Publicar
+  </button>
+
+  <div id="posts"></div>
+
 </section>
-
   <!-- ÁREA PRIVADA -->
   <section id="areaPrivada">
-    <div id="editor" contenteditable="true"  placeholder="Escreva sobre sua rotina..." ></div>
-    <input type="file" id="midia" accept="image/*,video/*">
+    <div id="editor" contenteditable="true"></div>
+    <input type="file" id="midia" accept="image/*,video/*,audio/*">
     <button onclick="publicar()">Publicar</button>
     <div id="posts"></div>
   </section>
