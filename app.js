@@ -134,6 +134,8 @@ await addDoc(collection(db, "posts"), {
 editor.innerHTML = "";
 ;
 
+}
+  
 function formatarData(timestamp) {
 
   if ( !timestamp) return "Data desconhecida";
