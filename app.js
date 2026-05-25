@@ -117,24 +117,58 @@ window.publicar = async function () {
         return;
     }
 
-    if (!editor || !editor.textContent.trim()) {
-        alert("Digite algo");
+    // Pega o input de mídia (garantindo que ele existe)
+    const inputMidia = document.getElementById("midia");
+    const arquivo = inputMidia ? inputMidia.files[0] : null;
+
+    if (!editor || (!editor.textContent.trim() && !arquivo)) {
+        alert("Digite algo ou selecione um arquivo");
         return;
     }
 
     try {
+        let urlMidia = null;
+        let tipoMidia = null;
+
+        if (arquivo) {
+            alert("Enviando arquivo... aguarde.");
+            urlMidia = await uploadArquivo(arquivo);
+            tipoMidia = arquivo.type;
+        }
+
         await addDoc(collection(db, "posts"), {
             texto: editor.innerHTML,
+            midia: urlMidia,
+            tipoMidia: tipoMidia,
             email: usuarioAtual.email,
             uid: usuarioAtual.uid,
             criadoEm: serverTimestamp()
         });
+
         editor.innerHTML = "";
+        if (inputMidia) inputMidia.value = ""; // Limpa o campo de arquivo
+        alert("Publicado com sucesso!");
+
     } catch (e) {
         console.error(e);
-        alert(e.message);
+        alert("Erro ao publicar: " + e.message);
     }
 };
+
+// ... (mantenha a função formatarData e carregarComentarios como estão)
+
+// CORREÇÃO NA FUNÇÃO EXCLUIR (Remova a duplicidade)
+async function excluirComentario(id) {
+    if (confirm("Excluir comentário?")) {
+        try {
+            await deleteDoc(doc(db, "posts", id));
+            // O onSnapshot cuidará de atualizar a tela automaticamente
+        } catch (e) {
+            console.error(e);
+            alert("Erro ao excluir: " + e.message);
+        }
+    }
+}
 
 function formatarData(timestamp) {
     if (!timestamp) return "Data desconhecida";
@@ -175,15 +209,4 @@ function carregarComentarios() {
             postsDiv.appendChild(div);
         });
     });
-}
-
-async function excluirComentario(id) {
-    if (confirm("Excluir comentário?")) {
-        try {
-            await deleteDoc(doc(db, "posts", id));
-        } catch (e) {
-            console.error(e);
-            alert(e.message);
-        }
-    }
 }
