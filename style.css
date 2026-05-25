@@ -230,7 +230,7 @@ button:hover {
 /* ÁREA PRIVADA */
 #areaPrivada {
 
-  display: none;
+  display: none !important;
 
   max-width: 750px;
 
