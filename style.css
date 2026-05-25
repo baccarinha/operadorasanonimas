@@ -372,7 +372,73 @@ textarea {
   content: "Escreva sobre sua rotina...";
   color: #94a3b8;
 }
+/* TOOLBAR EDITOR */
+.toolbar {
 
+  display: flex;
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+
+  padding: 10px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+}
+
+/* BOTÕES DA TOOLBAR */
+.toolbar button {
+
+  width: 45px;
+
+  height: 45px;
+
+  padding: 0;
+
+  margin: 0;
+
+  border-radius: 12px;
+
+  border: none;
+
+  cursor: pointer;
+
+  background: rgba(255,255,255,0.06);
+
+  color: white;
+
+  font-size: 18px;
+
+  transition: 0.25s ease;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+.toolbar button {
+   width: 45px;
+}
+/* HOVER */
+.toolbar button:hover {
+
+  background: linear-gradient(135deg, #ec4899, #3b82f6);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 12px rgba(236,72,153,0.4);
+
+}
 /* FOOTER */
 footer {
 
