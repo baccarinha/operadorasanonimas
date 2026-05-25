@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sejam bem vindos à Nossa COMUNIDADE | Rotina de Operadoras de Caixa Anônimas</title>
+  <title>
+    Sejam bem vindos à Nossa COMUNIDADE |
+    Rotina de Operadoras de Caixa Anônimas
+  </title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,7 +16,7 @@
 
 <header class="topo-neon">
 
-  <img 
+  <img
     src="https://th.bing.com/th/id/R.72030036864eee7b7bd3d9b8766a308f?rik=DIfq%2fy%2b%2f4KNR0g&riu=http%3a%2f%2fwww.i2symbol.com%2fpictures%2femojis%2f1%2f7%2f6%2fd%2f176ddf308ac2b261f77299113d78faf6.png&ehk=WduIYGmfykZmMrmPMDPI2puFNBkaNg8Wieotuw0c9mA%3d&risl=&pid=ImgRaw&r=0"
     class="operadores"
   >
@@ -24,54 +29,80 @@
     </span>
   </div>
 
-  <img 
+  <img
     src="https://th.bing.com/th/id/R.72030036864eee7b7bd3d9b8766a308f?rik=DIfq%2fy%2b%2f4KNR0g&riu=http%3a%2f%2fwww.i2symbol.com%2fpictures%2femojis%2f1%2f7%2f6%2fd%2f176ddf308ac2b261f77299113d78faf6.png&ehk=WduIYGmfykZmMrmPMDPI2puFNBkaNg8Wieotuw0c9mA%3d&risl=&pid=ImgRaw&r=0"
     class="operadores"
   >
 
 </header>
 
+<!-- LOGIN -->
 <section id="login">
-  <input id="email">
-  <input id="senha">
+
+  <input
+    type="email"
+    id="email"
+    name="email"
+    autocomplete="email"
+    placeholder="Digite seu email"
+  >
+
+  <input
+    type="password"
+    id="senha"
+    name="senha"
+    autocomplete="current-password"
+    placeholder="Digite sua senha"
+  >
+
   <button onclick="entrar()">Entrar</button>
   <button onclick="cadastrar()">Cadastrar</button>
+
 </section>
 
-<section id="areaPrivada">
+<!-- ÁREA PRIVADA -->
+<section id="areaPrivada" style="display:none;">
 
   <div class="toolbar">
+
     <button onclick="formatar('bold')">B</button>
+
     <button onclick="formatar('italic')">I</button>
+
     <button onclick="formatar('underline')">U</button>
-    <input type="color" onchange="mudarCor(this.value)">
+
+    <input
+      type="color"
+      onchange="mudarCor(this.value)"
+    >
+
     <button onclick="adicionarLink()">🔗</button>
+
   </div>
 
   <div id="editor" contenteditable="true"></div>
 
-  <input type="file" id="midia">
+  <input
+    type="file"
+    id="midia"
+    accept="image/*,video/*,audio/*"
+  >
 
-  <button onclick="publicar()">Publicar</button>
+  <button onclick="publicar()">
+    Publicar
+  </button>
 
   <div id="posts"></div>
 
 </section>
 
-  <!-- ÁREA PRIVADA -->
-  <section id="areaPrivada">
-    <div id="editor" contenteditable="true"></div>
-    <input type="file" id="midia" accept="image/*,video/*,audio/*">
-    <button onclick="publicar()">Publicar</button>
-    <div id="posts"></div>
-  </section>
-  
-  <footer> operadoras anônimas 2026</footer>
+<footer>
+  operadoras anônimas 2026
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
 
 <script type="module" src="app.js"></script>
-  
-</body>
 
+</body>
 </html>
