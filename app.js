@@ -6,6 +6,8 @@ import {
 from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 
 import {
+
+  let unsubscribePosts=null;
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -51,9 +53,6 @@ let loginDiv;
 let areaPrivada;
 let postsDiv;
 
-document.addEventListener("selectionchange", ()=> {
-    console.log(document.getSelection().toString());
-  });
 
 document.addEventListener("DOMContentLoaded", ()=> {
 
@@ -148,7 +147,11 @@ onAuthStateChanged(auth, (user)=> {
 
       areaPrivada.style.display="block";
 
-      carregarComentarios();
+      if (unsubscribePosts) {
+        unsubscribePosts();
+      }
+
+      unsubscribePosts=carregarComentarios();
 
     }
 
@@ -166,19 +169,41 @@ onAuthStateChanged(auth, (user)=> {
 
 window.publicar=async function () {
 
+  if ( !usuarioAtual) {
+    alert("Faça login");
+    return;
+  }
+
   if ( !editor || !editor.textContent.trim()) {
     alert("Digite algo");
     return;
   }
 
-  await addDoc(collection(db, "posts"), {
-    texto: editor.innerHTML,
-    email: usuarioAtual.email,
-    uid: usuarioAtual.uid,
-    criadoEm: serverTimestamp()
-  });
+  try {
 
-editor.innerHTML="";
+    await addDoc(collection(db, "posts"), {
+
+      texto: editor.innerHTML,
+
+      email: usuarioAtual.email,
+
+      uid: usuarioAtual.uid,
+
+      criadoEm: serverTimestamp()
+    });
+
+  editor.innerHTML="";
+
+}
+
+catch (e) {
+
+  console.error(e);
+
+  alert(e.message);
+
+}
+
 }
 
 ;
@@ -198,7 +223,7 @@ function carregarComentarios() {
   const q=query(collection(db, "posts"),
     orderBy("criadoEm", "desc"));
 
-  onSnapshot(q, (snapshot)=> {
+  return onSnapshot(q, (snapshot)=> {
 
       postsDiv.innerHTML="";
 
@@ -258,6 +283,26 @@ async function excluirComentario(id) {
   if (confirm("Excluir comentário?")) {
 
     await deleteDoc(doc(db, "posts", id));
+
+  }
+
+  async function excluirComentario(id) {
+
+    if ( !confirm("Excluir comentário?")) return;
+
+    try {
+
+      await deleteDoc(doc(db, "posts", id));
+
+    }
+
+    catch (e) {
+
+      console.error(e);
+
+      alert(e.message);
+
+    }
 
   }
 
