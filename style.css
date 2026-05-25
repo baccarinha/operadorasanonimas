@@ -230,7 +230,7 @@ button:hover {
 /* ÁREA PRIVADA */
 #areaPrivada {
 
-  display: none !important;
+  display: none;
 
   max-width: 750px;
 
@@ -425,9 +425,7 @@ textarea {
   justify-content: center;
 
 }
-.toolbar button {
-   width: 45px;
-}
+
 /* HOVER */
 .toolbar button:hover {
 
