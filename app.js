@@ -149,33 +149,35 @@ window.cadastrar=function () {
 
 onAuthStateChanged(auth, (user)=> {
 
-    if (user) {
+  console.log("USUARIO:", user);
 
-      usuarioAtual=user;
+  console.log("LOGIN DIV:", loginDiv);
 
-      loginDiv.style.display="none";
+  console.log("AREA PRIVADA:", areaPrivada);
 
-      areaPrivada.style.display="block";
+  if (user) {
 
-      if (unsubscribePosts) {
-        unsubscribePosts();
-      }
+    usuarioAtual = user;
 
-      unsubscribePosts=carregarComentarios();
+    loginDiv.style.display = "none";
 
-    }
+    areaPrivada.style.display = "block";
 
-    else {
+    carregarComentarios();
 
-      usuarioAtual=null;
+  }
 
-      loginDiv.style.display="block";
+  else {
 
-      areaPrivada.style.display="none";
+    usuarioAtual = null;
 
-    }
+    loginDiv.style.display = "block";
 
-  });
+    areaPrivada.style.display = "none";
+
+  }
+
+});
 
 window.publicar=async function () {
 
