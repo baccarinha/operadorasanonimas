@@ -107,12 +107,75 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+// Função para comprimir imagem
+async function comprimirImagem(arquivo) {
+    return new Promise((resolve) => {
+        // Se não for imagem, retorna o arquivo original
+        if (!arquivo.type.startsWith("image/")) {
+            resolve(arquivo);
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsDataURL(arquivo);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                let width = img.width;
+                let height = img.height;
+
+                // Redimensiona para no máximo 1200px de largura mantendo proporção
+                const maxWidth = 1200;
+                if (width > maxWidth) {
+                    height = (height * maxWidth) / width;
+                    width = maxWidth;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Converte para blob com qualidade reduzida (0.7 = 70% de qualidade)
+                canvas.toBlob(
+                    (blob) => {
+                        // Cria um novo arquivo com a imagem comprimida
+                        const arquivoComprimido = new File(
+                            [blob],
+                            arquivo.name,
+                            { type: "image/jpeg" }
+                        );
+                        console.log(
+                            `Imagem comprimida: ${(arquivo.size / 1024).toFixed(2)}KB → ${(arquivoComprimido.size / 1024).toFixed(2)}KB`
+                        );
+                        resolve(arquivoComprimido);
+                    },
+                    "image/jpeg",
+                    0.7
+                );
+            };
+        };
+    });
+}
+
+// Função para fazer upload do arquivo
 async function uploadArquivo(arquivo) {
     if (!arquivo) return null;
+
     try {
+        // Se for imagem, comprime antes de enviar
+        let arquivoParaEnviar = arquivo;
+        if (arquivo.type.startsWith("image/")) {
+            arquivoParaEnviar = await comprimirImagem(arquivo);
+        }
+
         const nomeArquivo = `${Date.now()}_${arquivo.name}`;
         const storageRef = ref(storage, `posts/${nomeArquivo}`);
-        await uploadBytes(storageRef, arquivo);
+        
+        await uploadBytes(storageRef, arquivoParaEnviar);
         const url = await getDownloadURL(storageRef);
         return url;
     } catch (e) {
@@ -141,7 +204,7 @@ window.publicar = async function () {
         let tipoMidia = null;
 
         if (arquivo) {
-            alert("Enviando arquivo... aguarde.");
+            alert("Processando e enviando arquivo... aguarde.");
             urlMidia = await uploadArquivo(arquivo);
             tipoMidia = arquivo.type;
         }
