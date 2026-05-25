@@ -51,39 +51,52 @@ let loginDiv;
 let areaPrivada;
 let postsDiv;
 
-document.addEventListener("selectionchange", () => {
-  console.log(document.getSelection().toString());
-});
+document.addEventListener("selectionchange", ()=> {
+    console.log(document.getSelection().toString());
+  });
 
-document.addEventListener("DOMContentLoaded", () => {
-  loginDiv = document.getElementById("login");
-  areaPrivada = document.getElementById("areaPrivada");
-  postsDiv = document.getElementById("posts");
+document.addEventListener("DOMContentLoaded", ()=> {
 
-  editor = document.getElementById("editor");
-});
+    loginDiv=document.getElementById("login");
 
-const email=document.getElementById("email");
-const senha=document.getElementById("senha");
+    areaPrivada=document.getElementById("areaPrivada");
 
+    postsDiv=document.getElementById("posts");
+
+    editor=document.getElementById("editor");
+
+    email=document.getElementById("email");
+
+    senha=document.getElementById("senha");
+
+  });
+
+let email;
+let senha;
 let editor;
 
-window.formatar = function(comando) {
+window.formatar=function(comando) {
   document.execCommand(comando, false, null);
-};
+}
 
-window.mudarCor = function(cor) {
+;
+
+window.mudarCor=function(cor) {
   document.execCommand("styleWithCSS", false, true);
   document.execCommand("foreColor", false, cor);
-};
+}
 
-window.adicionarLink = function() {
-  const url = prompt("Digite o link:");
+;
 
-  if (!url) return;
+window.adicionarLink=function() {
+  const url=prompt("Digite o link:");
+
+  if ( !url) return;
 
   document.execCommand("createLink", false, url);
-};
+}
+
+;
 
 window.entrar=function () {
 
@@ -153,7 +166,10 @@ onAuthStateChanged(auth, (user)=> {
 
 window.publicar=async function () {
 
-  if ( !editor || !editor.innerHTML.trim()) return;
+  if ( !editor || !editor.textContent.trim()) {
+    alert("Digite algo");
+    return;
+  }
 
   await addDoc(collection(db, "posts"), {
     texto: editor.innerHTML,
