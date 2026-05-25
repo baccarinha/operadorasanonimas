@@ -19,12 +19,13 @@ import {
 
 const firebaseConfig = {
     apiKey: "AIzaSyBKG2loEWbCRHgWYDdcCBe2n0P6guWJScQ",
-    authDomain: "operadorasanonimas.firebaseapp.com",
-    projectId: "operadorasanonimas",
-    storageBucket: "operadorasanonimas.firebasestorage.app",
+    authDomain: "operadorasanonimas-32d29.firebaseapp.com",
+    projectId: "operadorasanonimas-32d29",
+    storageBucket: "operadorasanonimas-32d29.firebasestorage.app",
     messagingSenderId: "1056988174739",
     appId: "1:1056988174739:web:f5b4bdc6a1421436937066"
 };
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
