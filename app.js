@@ -5,40 +5,37 @@ import {
     createUserWithEmailAndPassword, 
     onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-// 1. No topo do arquivo, certifique-se de importar o 'ref' e 'uploadBytes'
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-storage.js";
+import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    query, 
+    orderBy, 
+    onSnapshot, 
+    deleteDoc, 
+    doc, 
+    serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import { 
+    getStorage, 
+    ref, 
+    uploadBytes, 
+    getDownloadURL 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-storage.js";
 
-// ... (resto do código de inicialização )
-
-const storage = getStorage(app);
-
-// 2. Use esta função corrigida:
-async function uploadArquivo(arquivo) {
-    if (!arquivo) return null;
-
-    try {
-        const nomeArquivo = `${Date.now()}_${arquivo.name}`;
-        
-        // CORREÇÃO: No Firebase v12 usamos a função ref() passando o storage e o caminho
-        const storageRef = ref(storage, `posts/${nomeArquivo}`);
-        
-        // CORREÇÃO: Usamos uploadBytes() em vez de put()
-        await uploadBytes(storageRef, arquivo);
-        
-        // Pega a URL final
-        const url = await getDownloadURL(storageRef);
-        return url;
-    } catch (e) {
-        console.error("Erro no upload:", e);
-        alert("Erro ao enviar arquivo: " + e.message);
-        return null;
-    }
-}
-
+const firebaseConfig = {
+    apiKey: "AIzaSyBKG2loEWbCRHgWYDdcCBe2n0P6guWJScQ",
+    authDomain: "operadorasanonimas-32d29.firebaseapp.com",
+    projectId: "operadorasanonimas-32d29",
+    storageBucket: "operadorasanonimas-32d29.firebasestorage.app",
+    messagingSenderId: "1056988174739",
+    appId: "1:1056988174739:web:f5b4bdc6a1421436937066"
+};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 const ADMIN_UID = "lr2SFMyNrJb4b610BlGIA422u2y1";
 
@@ -94,7 +91,6 @@ window.cadastrar = function () {
 };
 
 onAuthStateChanged(auth, (user) => {
-    console.log("USUARIO:", user);
     if (user) {
         usuarioAtual = user;
         loginDiv.style.display = "none";
@@ -111,13 +107,27 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+async function uploadArquivo(arquivo) {
+    if (!arquivo) return null;
+    try {
+        const nomeArquivo = `${Date.now()}_${arquivo.name}`;
+        const storageRef = ref(storage, `posts/${nomeArquivo}`);
+        await uploadBytes(storageRef, arquivo);
+        const url = await getDownloadURL(storageRef);
+        return url;
+    } catch (e) {
+        console.error("Erro no upload:", e);
+        alert("Erro ao enviar arquivo: " + e.message);
+        return null;
+    }
+}
+
 window.publicar = async function () {
     if (!usuarioAtual) {
         alert("Faça login");
         return;
     }
 
-    // Pega o input de mídia (garantindo que ele existe)
     const inputMidia = document.getElementById("midia");
     const arquivo = inputMidia ? inputMidia.files[0] : null;
 
@@ -146,7 +156,7 @@ window.publicar = async function () {
         });
 
         editor.innerHTML = "";
-        if (inputMidia) inputMidia.value = ""; // Limpa o campo de arquivo
+        if (inputMidia) inputMidia.value = "";
         alert("Publicado com sucesso!");
 
     } catch (e) {
@@ -154,21 +164,6 @@ window.publicar = async function () {
         alert("Erro ao publicar: " + e.message);
     }
 };
-
-// ... (mantenha a função formatarData e carregarComentarios como estão)
-
-// CORREÇÃO NA FUNÇÃO EXCLUIR (Remova a duplicidade)
-async function excluirComentario(id) {
-    if (confirm("Excluir comentário?")) {
-        try {
-            await deleteDoc(doc(db, "posts", id));
-            // O onSnapshot cuidará de atualizar a tela automaticamente
-        } catch (e) {
-            console.error(e);
-            alert("Erro ao excluir: " + e.message);
-        }
-    }
-}
 
 function formatarData(timestamp) {
     if (!timestamp) return "Data desconhecida";
@@ -192,9 +187,37 @@ function carregarComentarios() {
             div.appendChild(timestampDiv);
 
             // TEXTO
-            const textoDiv = document.createElement("div");
-            textoDiv.innerHTML = DOMPurify.sanitize(post.texto);
-            div.appendChild(textoDiv);
+            if (post.texto && post.texto.trim() !== "") {
+                const textoDiv = document.createElement("div");
+                textoDiv.innerHTML = DOMPurify.sanitize(post.texto);
+                div.appendChild(textoDiv);
+            }
+
+            // MÍDIA
+            if (post.midia) {
+                if (post.tipoMidia && post.tipoMidia.startsWith("image/")) {
+                    const img = document.createElement("img");
+                    img.src = post.midia;
+                    img.style.maxWidth = "100%";
+                    img.style.borderRadius = "12px";
+                    img.style.marginTop = "10px";
+                    div.appendChild(img);
+                } else if (post.tipoMidia && post.tipoMidia.startsWith("video/")) {
+                    const video = document.createElement("video");
+                    video.src = post.midia;
+                    video.controls = true;
+                    video.style.maxWidth = "100%";
+                    video.style.borderRadius = "12px";
+                    video.style.marginTop = "10px";
+                    div.appendChild(video);
+                } else if (post.tipoMidia && post.tipoMidia.startsWith("audio/")) {
+                    const audio = document.createElement("audio");
+                    audio.src = post.midia;
+                    audio.controls = true;
+                    audio.style.marginTop = "10px";
+                    div.appendChild(audio);
+                }
+            }
 
             // BOTÃO EXCLUIR
             if (usuarioAtual && (usuarioAtual.uid === ADMIN_UID || usuarioAtual.uid === post.uid)) {
@@ -209,4 +232,15 @@ function carregarComentarios() {
             postsDiv.appendChild(div);
         });
     });
+}
+
+async function excluirComentario(id) {
+    if (confirm("Excluir comentário?")) {
+        try {
+            await deleteDoc(doc(db, "posts", id));
+        } catch (e) {
+            console.error(e);
+            alert("Erro ao excluir: " + e.message);
+        }
+    }
 }
