@@ -97,21 +97,31 @@ window.adicionarLink=function() {
 
 ;
 
-window.entrar=function () {
+window.entrar = async function () {
 
-  if ( !email.value || !senha.value) {
-    alert("Preencha email e senha");
-    return;
+  try {
+
+    const cred = await signInWithEmailAndPassword(
+      auth,
+      email.value,
+      senha.value
+    );
+
+    console.log("LOGADO:", cred.user);
+
+    alert("LOGIN OK");
+
   }
 
-  signInWithEmailAndPassword(auth, email.value, senha.value) .catch((e)=> {
-      console.log(e);
-      alert(e.message);
-    });
+  catch (e) {
 
-}
+    console.error(e);
 
-;
+    alert(e.message);
+
+  }
+
+};
 
 window.cadastrar=function () {
 
