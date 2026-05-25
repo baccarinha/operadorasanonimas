@@ -163,9 +163,17 @@ onAuthStateChanged(auth, (user)=> {
 
     areaPrivada.style.display = "block";
 
+   try {
+
     carregarComentarios();
 
-  }
+}
+
+   catch (e) {
+
+    console.error(e);
+
+}
 
   else {
 
@@ -230,7 +238,7 @@ function formatarData(timestamp) {
 
 }
 
-function carregarComentarios() {
+function Comentarios() {
 
   const q=query(collection(db, "posts"),
     orderBy("criadoEm", "desc"));
