@@ -191,6 +191,7 @@ window.publicar = async function () {
         return;
     }
 
+    const btnPublicar = document.querySelector("button[onclick='publicar()']");
     const inputMidia = document.getElementById("midia");
     const arquivo = inputMidia ? inputMidia.files[0] : null;
 
@@ -200,11 +201,15 @@ window.publicar = async function () {
     }
 
     try {
+        // Desativa o botão e muda o texto para dar feedback visual
+        btnPublicar.disabled = true;
+        btnPublicar.textContent = "Enviando... aguarde";
+        btnPublicar.style.opacity = "0.6";
+
         let urlMidia = null;
         let tipoMidia = null;
 
         if (arquivo) {
-            alert("Processando e enviando arquivo... aguarde.");
             urlMidia = await uploadArquivo(arquivo);
             tipoMidia = arquivo.type;
         }
@@ -220,11 +225,18 @@ window.publicar = async function () {
 
         editor.innerHTML = "";
         if (inputMidia) inputMidia.value = "";
-        alert("Publicado com sucesso!");
+        
+        // Sucesso silencioso ou discreto para não travar a tela
+        console.log("Publicado com sucesso!");
 
     } catch (e) {
         console.error(e);
         alert("Erro ao publicar: " + e.message);
+    } finally {
+        // Reativa o botão
+        btnPublicar.disabled = false;
+        btnPublicar.textContent = "Publicar";
+        btnPublicar.style.opacity = "1";
     }
 };
 
