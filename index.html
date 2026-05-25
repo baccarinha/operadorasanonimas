@@ -32,52 +32,31 @@
 </header>
 
 <section id="login">
-
-  <input id="email" type="email" placeholder="Email">
-  <input id="senha" type="password" placeholder="Senha">
-
+  <input id="email">
+  <input id="senha">
   <button onclick="entrar()">Entrar</button>
   <button onclick="cadastrar()">Cadastrar</button>
-
 </section>
-  
+
+<section id="areaPrivada">
+
   <div class="toolbar">
-
-    <button onclick="formatar('bold')">
-      <b>B</b>
-    </button>
-
-    <button onclick="formatar('italic')">
-      <i>I</i>
-    </button>
-
-    <button onclick="formatar('underline')">
-      <u>U</u>
-    </button>
-
-    <input type="color"
-           onchange="mudarCor(this.value)">
-
-    <button onclick="adicionarLink()">
-      🔗
-    </button>
-
+    <button onclick="formatar('bold')">B</button>
+    <button onclick="formatar('italic')">I</button>
+    <button onclick="formatar('underline')">U</button>
+    <input type="color" onchange="mudarCor(this.value)">
+    <button onclick="adicionarLink()">🔗</button>
   </div>
 
   <div id="editor" contenteditable="true"></div>
 
-  <input
-    type="file"
-    id="midia"
-    accept="image/*,video/*,audio/*"
-  >
+  <input type="file" id="midia">
 
-  <button onclick="publicar()">
-    Publicar
-  </button>
+  <button onclick="publicar()">Publicar</button>
 
   <div id="posts"></div>
 
+</section>
 
   <!-- ÁREA PRIVADA -->
   <section id="areaPrivada">
