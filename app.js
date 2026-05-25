@@ -1,3 +1,6 @@
+// Função auxiliar para atualizar documento (necessária para a otimização 5)
+import { updateDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
@@ -393,5 +396,3 @@ async function excluirComentario(id) {
   }
 }
 
-// Função auxiliar para atualizar documento (necessária para a otimização 5)
-import { updateDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
