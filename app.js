@@ -97,15 +97,13 @@ window.adicionarLink=function() {
 
 ;
 
-window.entrar = async function () {
+window.entrar=async function () {
 
   try {
 
-    const cred = await signInWithEmailAndPassword(
-      auth,
+    const cred=await signInWithEmailAndPassword(auth,
       email.value,
-      senha.value
-    );
+      senha.value);
 
     console.log("LOGADO:", cred.user);
 
@@ -121,7 +119,9 @@ window.entrar = async function () {
 
   }
 
-};
+}
+
+;
 
 window.cadastrar=function () {
 
@@ -149,80 +149,80 @@ window.cadastrar=function () {
 
 onAuthStateChanged(auth, (user)=> {
 
-  console.log("USUARIO:", user);
+    console.log("USUARIO:", user);
 
-  console.log("LOGIN DIV:", loginDiv);
+    console.log("LOGIN DIV:", loginDiv);
 
-  console.log("AREA PRIVADA:", areaPrivada);
+    console.log("AREA PRIVADA:", areaPrivada);
 
-  if (user) {
+    if (user) {
 
-    usuarioAtual = user;
+      usuarioAtual=user;
 
-    loginDiv.style.display = "none";
+      loginDiv.style.display="none";
 
-    areaPrivada.style.display = "block";
+      areaPrivada.style.display="block";
 
-   try {
+      try {
 
-    carregarComentarios();
+        carregarComentarios();
 
-}
+      }
 
-   catch (e) {
+      catch (e) {
+
+        console.error(e);
+
+      }
+
+      else {
+
+        usuarioAtual=null;
+
+        loginDiv.style.display="block";
+
+        areaPrivada.style.display="none";
+
+      }
+
+    });
+
+  window.publicar=async function () {
+
+    if ( !usuarioAtual) {
+      alert("Faça login");
+      return;
+    }
+
+    if ( !editor || !editor.textContent.trim()) {
+      alert("Digite algo");
+      return;
+    }
+
+    try {
+
+      await addDoc(collection(db, "posts"), {
+
+        texto: editor.innerHTML,
+
+        email: usuarioAtual.email,
+
+        uid: usuarioAtual.uid,
+
+        criadoEm: serverTimestamp()
+      });
+
+    editor.innerHTML="";
+
+  }
+
+  catch (e) {
 
     console.error(e);
 
-}
-
-  else {
-
-    usuarioAtual = null;
-
-    loginDiv.style.display = "block";
-
-    areaPrivada.style.display = "none";
+    alert(e.message);
 
   }
-
-});
-
-window.publicar=async function () {
-
-  if ( !usuarioAtual) {
-    alert("Faça login");
-    return;
-  }
-
-  if ( !editor || !editor.textContent.trim()) {
-    alert("Digite algo");
-    return;
-  }
-
-  try {
-
-    await addDoc(collection(db, "posts"), {
-
-      texto: editor.innerHTML,
-
-      email: usuarioAtual.email,
-
-      uid: usuarioAtual.uid,
-
-      criadoEm: serverTimestamp()
-    });
-
-  editor.innerHTML="";
-
-}
-
-catch (e) {
-
-  console.error(e);
-
-  alert(e.message);
-
-}
 
 }
 
