@@ -5,26 +5,35 @@ import {
     createUserWithEmailAndPassword, 
     onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-import { 
-    getFirestore, 
-    collection, 
-    addDoc, 
-    query, 
-    orderBy, 
-    onSnapshot, 
-    deleteDoc, 
-    doc, 
-    serverTimestamp 
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+// 1. No topo do arquivo, certifique-se de importar o 'ref' e 'uploadBytes'
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-storage.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBKG2loEWbCRHgWYDdcCBe2n0P6guWJScQ",
-    authDomain: "operadorasanonimas-32d29.firebaseapp.com",
-    projectId: "operadorasanonimas-32d29",
-    storageBucket: "operadorasanonimas-32d29.firebasestorage.app",
-    messagingSenderId: "1056988174739",
-    appId: "1:1056988174739:web:f5b4bdc6a1421436937066"
-};
+// ... (resto do código de inicialização )
+
+const storage = getStorage(app);
+
+// 2. Use esta função corrigida:
+async function uploadArquivo(arquivo) {
+    if (!arquivo) return null;
+
+    try {
+        const nomeArquivo = `${Date.now()}_${arquivo.name}`;
+        
+        // CORREÇÃO: No Firebase v12 usamos a função ref() passando o storage e o caminho
+        const storageRef = ref(storage, `posts/${nomeArquivo}`);
+        
+        // CORREÇÃO: Usamos uploadBytes() em vez de put()
+        await uploadBytes(storageRef, arquivo);
+        
+        // Pega a URL final
+        const url = await getDownloadURL(storageRef);
+        return url;
+    } catch (e) {
+        console.error("Erro no upload:", e);
+        alert("Erro ao enviar arquivo: " + e.message);
+        return null;
+    }
+}
 
 
 const app = initializeApp(firebaseConfig);
