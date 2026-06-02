@@ -171,14 +171,6 @@ async function uploadArquivoComRetry(arquivo, maxTentativas = 3) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loginDiv = document.getElementById("login");
-  areaPrivada = document.getElementById("areaPrivada");
-  postsDiv = document.getElementById("posts");
-  editor = document.getElementById("editor");
-  email = document.getElementById("email");
-  senha = document.getElementById("senha");
-});
 
 window.formatar = function(comando) {
   document.execCommand(comando, false, null);
@@ -218,21 +210,36 @@ window.cadastrar = function () {
     });
 };
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    usuarioAtual = user;
-    loginDiv.style.display = "none";
-    areaPrivada.style.display = "block";
-    carregarComentarios();
-  } else {
-    usuarioAtual = null;
-    loginDiv.style.display = "block";
-    areaPrivada.style.display = "none";
-    if (unsubscribePosts) {
-      unsubscribePosts();
-      unsubscribePosts = null;
+document.addEventListener("DOMContentLoaded", () => {
+
+  loginDiv = document.getElementById("login");
+  areaPrivada = document.getElementById("areaPrivada");
+  postsDiv = document.getElementById("posts");
+  editor = document.getElementById("editor");
+  email = document.getElementById("email");
+  senha = document.getElementById("senha");
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      usuarioAtual = user;
+
+      loginDiv.style.display = "none";
+      areaPrivada.style.display = "block";
+
+      carregarComentarios();
+    } else {
+      usuarioAtual = null;
+
+      loginDiv.style.display = "block";
+      areaPrivada.style.display = "none";
+
+      if (unsubscribePosts) {
+        unsubscribePosts();
+        unsubscribePosts = null;
+      }
     }
-  }
+  });
+
 });
 
 // OTIMIZAÇÃO 6: Publicação otimizada com feedback de progresso
