@@ -1,107 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    Sejam bem vindos à Nossa COMUNIDADE |
-    Rotina de Operadoras de Caixa Anônimas
-  </title>
-
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade | Rotina de Operadoras de Caixa Anônimas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fontes Modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<header class="topo-neon">
+    <!-- Cabeçalho Semântico -->
+    <header class="main-header">
+        <div class="header-content">
+            <figure class="logo">
+                <img src="https://th.bing.com/th/id/R.72030036864eee7b7bd3d9b8766a308f?rik=DIfq%2fy%2b%2f4KNR0g&riu=http%3a%2f%2fwww.i2symbol.com%2fpictures%2femojis%2f1%2f7%2f6%2fd%2f176ddf308ac2b261f77299113d78faf6.png&ehk=WduIYGmfykZmMrmPMDPI2puFNBkaNg8Wieotuw0c9mA%3d&risl=&pid=ImgRaw&r=0" alt="Ícone Operadora">
+            </figure>
+            <div class="title-wrapper">
+                <h1>Sejam bem vindos à Nossa COMUNIDADE!</h1>
+                <p>Rotina de Operadoras de Caixa Anônimas</p>
+            </div>
+            <figure class="logo">
+                <img src="https://th.bing.com/th/id/R.72030036864eee7b7bd3d9b8766a308f?rik=DIfq%2fy%2b%2f4KNR0g&riu=http%3a%2f%2fwww.i2symbol.com%2fpictures%2femojis%2f1%2f7%2f6%2fd%2f176ddf308ac2b261f77299113d78faf6.png&ehk=WduIYGmfykZmMrmPMDPI2puFNBkaNg8Wieotuw0c9mA%3d&risl=&pid=ImgRaw&r=0" alt="Ícone Operadora">
+            </figure>
+        </div>
+    </header>
 
-  <img
-    src="https://th.bing.com/th/id/R.72030036864eee7b7bd3d9b8766a308f?rik=DIfq%2fy%2b%2f4KNR0g&riu=http%3a%2f%2fwww.i2symbol.com%2fpictures%2femojis%2f1%2f7%2f6%2fd%2f176ddf308ac2b261f77299113d78faf6.png&ehk=WduIYGmfykZmMrmPMDPI2puFNBkaNg8Wieotuw0c9mA%3d&risl=&pid=ImgRaw&r=0"
-    class="operadores"
-  >
+    <main class="container">
+        <!-- Seção de Login -->
+        <section id="login-section" class="card">
+            <header>
+                <h2>Acesse sua Conta</h2>
+            </header>
+            <form id="login-form" onsubmit="event.preventDefault( ); entrar();">
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" required placeholder="exemplo@email.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" required placeholder="Sua senha secreta" autocomplete="current-password">
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <button type="button" onclick="alert('Cadastro em breve!')" class="btn btn-outline">Cadastrar</button>
+                </div>
+            </form>
+        </section>
 
-  <div class="titulo-topo">
-    Sejam bem vindos a Nossa COMUNIDADE!<br>
+        <!-- Seção Privada (Editor) -->
+        <section id="private-area" class="card" style="display: none;">
+            <header>
+                <h2>O que você quer compartilhar hoje?</h2>
+            </header>
+            
+            <nav class="editor-toolbar">
+                <button type="button" onclick="formatar('bold')" title="Negrito"><b>B</b></button>
+                <button type="button" onclick="formatar('italic')" title="Itálico"><i>I</i></button>
+                <button type="button" onclick="formatar('underline')" title="Sublinhado"><u>U</u></button>
+                <input type="color" onchange="mudarCor(this.value)" title="Cor do texto">
+                <button type="button" onclick="adicionarLink()" title="Inserir Link">🔗</button>
+            </nav>
 
-    <span style="font-size:20px;">
-      Rotina de Operadoras de Caixa Anônimas
-    </span>
-  </div>
+            <div id="editor" contenteditable="true" placeholder="Escreva aqui seu desabafo ou dica..."></div>
 
-  <img
-    src="https://th.bing.com/th/id/R.72030036864eee7b7bd3d9b8766a308f?rik=DIfq%2fy%2b%2f4KNR0g&riu=http%3a%2f%2fwww.i2symbol.com%2fpictures%2femojis%2f1%2f7%2f6%2fd%2f176ddf308ac2b261f77299113d78faf6.png&ehk=WduIYGmfykZmMrmPMDPI2puFNBkaNg8Wieotuw0c9mA%3d&risl=&pid=ImgRaw&r=0"
-    class="operadores"
-  >
+            <section class="media-upload">
+                <label for="midia" class="upload-label">
+                    <span>📷 Adicionar Foto ou Vídeo</span>
+                    <input type="file" id="midia" accept="image/*,video/*">
+                </label>
+                <div id="preview-area"></div>
+            </section>
 
-</header>
+            <button type="button" onclick="publicar()" class="btn btn-publish">Publicar no Mural</button>
 
-<!-- LOGIN -->
-<section id="login">
+            <hr>
 
-  <input
-    type="email"
-    id="email"
-    name="email"
-    autocomplete="email"
-    placeholder="Digite seu email"
-  >
+            <section class="feed">
+                <h3>Mural da Comunidade</h3>
+                <div id="posts-list">
+                    <!-- Posts aparecerão aqui como elementos <article> -->
+                </div>
+            </section>
+        </section>
+    </main>
 
-  <input
-    type="password"
-    id="senha"
-    name="senha"
-    autocomplete="current-password"
-    placeholder="Digite sua senha"
-  >
+    <footer class="main-footer">
+        <p>&copy; 2026 Operadoras Anônimas. Respeito e união acima de tudo.</p>
+    </footer>
 
-  <button onclick="entrar()">Entrar</button>
-  <button onclick="cadastrar()">Cadastrar</button>
-
-</section>
-
-<!-- ÁREA PRIVADA -->
-<section id="areaPrivada">
-  <div class="toolbar">
-
-    <button onclick="formatar('bold')">B</button>
-
-    <button onclick="formatar('italic')">I</button>
-
-    <button onclick="formatar('underline')">U</button>
-
-    <input
-      type="color"
-      onchange="mudarCor(this.value)"
-    >
-
-    <button onclick="adicionarLink()">🔗</button>
-
-  </div>
-
-  <div id="editor" contenteditable="true"></div>
-
-  <input
-    type="file"
-    id="midia"
-    accept="image/*,video/*,audio/*"
-  >
-
-  <button onclick="publicar()">
-    Publicar
-  </button>
-
-  <div id="posts"></div>
-
-</section>
-
-<footer>
-  operadoras anônimas 2026
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
-
-<script type="module" src="app.js"></script>
-
+    <!-- Bibliotecas e Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
